@@ -107,6 +107,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\MarkerFelt-22.xnb" />
+    <Content Include="Content\hd\images\b_bishop.png" />
+    <Content Include="Content\hd\images\b_king.png" />
+    <Content Include="Content\hd\images\b_knight.png" />
+    <Content Include="Content\hd\images\b_pawn.png" />
+    <Content Include="Content\hd\images\b_queen.png" />
+    <Content Include="Content\hd\images\b_rook.png" />
+    <Content Include="Content\hd\images\chessboard.png" />
+    <Content Include="Content\hd\sprites.plist" />
+    <Content Include="Content\hd\sprites.png" />
+    <Content Include="Content\hd\images\w_bishop.png" />
+    <Content Include="Content\hd\images\w_king.png" />
+    <Content Include="Content\hd\images\w_knight.png" />
+    <EmbeddedResource Include="Content\hd\images\w_pawn.png" />
+    <Content Include="Content\hd\images\w_queen.png" />
+    <EmbeddedResource Include="Content\hd\images\w_rook.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.scale-240.png" />
@@ -164,7 +179,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\tilemaps\board.tmx" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\hd\animations\" />
+    <Folder Include="Content\hd\fonts\" />
+    <Folder Include="Content\ld\animations\" />
+    <Folder Include="Content\ld\fonts\" />
+    <Folder Include="Content\ld\images\" />
+    <Folder Include="Content\sounds\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

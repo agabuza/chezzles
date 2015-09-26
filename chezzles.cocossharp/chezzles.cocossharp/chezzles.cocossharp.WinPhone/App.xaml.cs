@@ -1,5 +1,6 @@
 ﻿using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.Graphics.Display;
 using Windows.UI.Xaml;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
@@ -45,6 +46,7 @@ namespace chezzles.cocossharp.WinPhone
 
                 // Place the GamePage in the current Window
                 Window.Current.Content = gamePage;
+                DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait;
             }
 
             // Ensure the current window is active

@@ -10,11 +10,17 @@ namespace chezzles.cocossharp
 
         public override void ApplicationDidFinishLaunching(CCApplication application, CCWindow mainWindow)
         {
+            application.PreferMultiSampling = false;
             application.ContentRootDirectory = "Content";
+            application.ContentSearchPaths.Add("animations");
+            application.ContentSearchPaths.Add("fonts");
+            application.ContentSearchPaths.Add("sounds");
+            application.ContentSearchPaths.Add("images");
+
             var windowSize = mainWindow.WindowSizeInPixels;
 
-            var desiredWidth = 500.0f;
-            var desiredHeight = 500.0f;
+            float desiredWidth = 800.0f;
+            float desiredHeight = 400.0f;
 
             // This will set the world bounds to be (0,0, w, h)
             // CCSceneResolutionPolicy.ShowAll will ensure that the aspect ratio is preserved
@@ -35,7 +41,7 @@ namespace chezzles.cocossharp
             }
 
             var scene = new CCScene(mainWindow);
-            var introLayer = new IntroLayer();
+            var introLayer = new GameLayer();
 
             scene.AddChild(introLayer);
 

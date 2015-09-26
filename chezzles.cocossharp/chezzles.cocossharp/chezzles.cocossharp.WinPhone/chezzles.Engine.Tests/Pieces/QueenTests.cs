@@ -29,10 +29,10 @@ namespace chezzles.Engine.Tests.Pieces
             Assert.That(queen.CanMoveTo(new Square(6, 3)), Is.False);
         }
 
-        [TestCase(1, 1)]
-        [TestCase(4, 1)]
-        [TestCase(3, 4)]
-        [TestCase(8, 8)]
+        [TestCase(-3, -3)]
+        [TestCase(0, -3)]
+        [TestCase(-1, 0)]
+        [TestCase(4, 4)]
         public void Whether_Queen_CanMoveToPossibleSquare_On_CanMoveTo(int offsetX, int offsetY)
         {
             var board = new Board();

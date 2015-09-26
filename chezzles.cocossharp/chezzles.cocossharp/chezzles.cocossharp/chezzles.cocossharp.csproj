@@ -32,7 +32,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="IntroLayer.cs" />
+    <Compile Include="Extensions\CCNodeExtensions.cs" />
+    <Compile Include="Extensions\CCPointExtensions.cs" />
+    <Compile Include="GameLayer.cs" />
+    <Compile Include="Pieces\CocoPiece.cs" />
+    <Compile Include="Pieces\CocoPieceBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -48,6 +52,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\chezzles.Engine\chezzles.Engine.csproj">
+      <Project>{53c8f965-698a-43d0-b6f1-642d43e378a8}</Project>
+      <Name>chezzles.Engine</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>

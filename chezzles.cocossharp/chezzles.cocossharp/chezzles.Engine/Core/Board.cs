@@ -8,9 +8,16 @@ namespace chezzles.engine.Core
     public class Board
     {
         private Dictionary<Square, Piece> squares;
+        private float size;
 
         public Board()
+            : this(800)
         {
+        }
+
+        public Board(float size)
+        {
+            this.size = size;
             this.squares = new Dictionary<Square, Piece>();
             for (int i = 1; i <= 8; i++)
                 for (int j = 1; j <= 8; j++)
