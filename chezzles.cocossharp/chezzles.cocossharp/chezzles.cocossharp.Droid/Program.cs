@@ -23,7 +23,7 @@ namespace chezzles.cocossharp.Droid
         , Theme = "@style/Theme.Splash"
         , AlwaysRetainTaskState = true
         , LaunchMode = Android.Content.PM.LaunchMode.SingleInstance
-        , ScreenOrientation = ScreenOrientation.SensorLandscape
+        , ScreenOrientation = ScreenOrientation.Portrait
         , ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.Keyboard | ConfigChanges.KeyboardHidden)]
     public class Program : AndroidGameActivity
     {

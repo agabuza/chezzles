@@ -107,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\MarkerFelt-22.xnb" />
+    <Content Include="Content\hd\images\background.png" />
     <Content Include="Content\hd\images\b_bishop.png" />
     <Content Include="Content\hd\images\b_king.png" />
     <Content Include="Content\hd\images\b_knight.png" />

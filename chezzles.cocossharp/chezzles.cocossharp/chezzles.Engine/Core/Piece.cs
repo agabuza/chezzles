@@ -27,6 +27,11 @@ namespace chezzles.engine.Core
             get { return color; }
         }
 
+        public Board Board
+        {
+            get { return board; }
+        }
+
         protected virtual int MaxRange
         {
             get { return 8; }

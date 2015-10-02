@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Content\fonts\MarkerFelt-22.xnb" />
+    <AndroidAsset Include="Assets\Content\tilemaps\board.tmx" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
@@ -78,7 +79,6 @@
   <ItemGroup>
     <Folder Include="Assets\Content\hd\animations\" />
     <Folder Include="Assets\Content\hd\fonts\" />
-    <Folder Include="Assets\Content\hd\images\" />
     <Folder Include="Assets\Content\ld\animations\" />
     <Folder Include="Assets\Content\ld\fonts\" />
     <Folder Include="Assets\Content\ld\images\" />
@@ -102,6 +102,54 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Content\hd\images\w_rook.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Content\hd\images\b_bishop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Content\hd\images\b_king.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Content\hd\images\b_knight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Content\hd\images\b_pawn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Content\hd\images\b_queen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Content\hd\images\b_rook.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Content\hd\images\background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Content\hd\images\chessboard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Content\hd\images\w_bishop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Content\hd\images\w_king.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Content\hd\images\w_knight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Content\hd\images\w_pawn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Content\hd\images\w_queen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Content\hd\sprites.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Content\hd\sprites.plist" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -35,6 +35,7 @@
     <Compile Include="Extensions\CCNodeExtensions.cs" />
     <Compile Include="Extensions\CCPointExtensions.cs" />
     <Compile Include="GameLayer.cs" />
+    <Compile Include="Menu\CCButton.cs" />
     <Compile Include="Pieces\CocoPiece.cs" />
     <Compile Include="Pieces\CocoPieceBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

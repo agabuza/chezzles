@@ -26,6 +26,11 @@ namespace chezzles.engine.Core
                 }
         }
 
+        public float Size
+        {
+            get { return this.size; }
+        }
+
         public Board(Dictionary<Square, Piece> squares)
         {
             this.squares = squares;
