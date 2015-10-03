@@ -30,13 +30,17 @@ namespace chezzles.Engine.Tests.Pieces
         }
 
         [TestCase(1, 2)]
-        [TestCase(-2, 1)]
+        [TestCase(-1, 2)]
+        [TestCase(1, -2)]
         [TestCase(-1, -2)]
+        [TestCase(2, 1)]
         [TestCase(2, -1)]
-        public void Whether_Knight_CanMoveToPossibleSquare_On_CanMoveTo(int offsetX, int offsetY)
+        [TestCase(-2, 1)]
+        [TestCase(-2, -1)]
+        public void Whehter_Knight_CanMoveToPossibleSquare_On_CanMoveTo(int offsetX, int offsetY)
         {
             var board = new Board();
-            var knight = new Knight(new Square(4, 4), board, PieceColor.White);
+            var knight = new Knight(new Square(5, 4), board, PieceColor.White);
 
             Assert.That(knight.CanMoveTo(
                 new Square(knight.GetPosition().XPosition + offsetX,

@@ -11,7 +11,7 @@ namespace chezzles.engine.Core
         private float size;
 
         public Board()
-            : this(800)
+            : this(400)
         {
         }
 

@@ -74,6 +74,18 @@ namespace chezzles.Engine.Tests.Pieces
             Assert.That(queen.CanMoveTo(new Square(6, 6)), Is.False);
         }
 
+        [TestCase(1, 1)]
+        [TestCase(2, 2)]
+        [TestCase(8, 8)]
+        [TestCase(7, 7)]
+        public void Whether_Queen_CanMoveToCornerSquares_On_CanMoveTo(int x, int y)
+        {
+            var board = new Board();
+            var queen = new Queen(new Square(3, 3), board, PieceColor.White);
+
+            Assert.That(queen.CanMoveTo(new Square(x, y)), Is.True);
+        }
+
         [Test]
         public void Whether_Queen_CanGrabOpponentsPiece_On_CanMoveTo()
         {

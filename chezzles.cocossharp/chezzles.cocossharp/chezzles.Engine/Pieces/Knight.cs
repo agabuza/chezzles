@@ -24,18 +24,21 @@ namespace chezzles.engine.Pieces
         protected override IEnumerable<Tuple<int, int>> GetOffsets()
         {
             var offset = new List<Tuple<int, int>>();
-            offset.Add(new Tuple<int, int>(1, 2));
-            offset.Add(new Tuple<int, int>(2, 1));
-            offset.Add(new Tuple<int, int>(1, -2));
             offset.Add(new Tuple<int, int>(2, -1));
+            offset.Add(new Tuple<int, int>(2, 1));
+            offset.Add(new Tuple<int, int>(-2, 1));
+            offset.Add(new Tuple<int, int>(-2, -1));
+            offset.Add(new Tuple<int, int>(1, -2));
+            offset.Add(new Tuple<int, int>(-1, -2));
+            offset.Add(new Tuple<int, int>(1, 2));
+            offset.Add(new Tuple<int, int>(-1, 2));
 
             return offset;
         }
 
         public override IEnumerable<Square> PossibleMoves()
         {
-            var squares = GetOffsets().Select(x => new Square(this.position.XPosition + x.Item1, this.position.XPosition + x.Item2))
-               .Union(GetOffsets().Select(x => new Square(this.position.XPosition - x.Item1, this.position.XPosition + x.Item2)));
+            var squares = GetOffsets().Select(x => new Square(this.position.XPosition + x.Item1, this.position.YPosition + x.Item2));
 
             return squares.Where(sq => this.board.Squares.ContainsKey(sq) &&
                     (this.board.Squares[sq] == null || this.board.Squares[sq].Color != this.Color));

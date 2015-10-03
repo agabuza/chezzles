@@ -13,7 +13,7 @@ namespace chezzles.Engine.Tests.Pieces
     public class KingTests
     {
         [Test]
-        public void Whether_King_ReturnsCorrectMoves_On_PossibleMoves()
+        public void Whether_king_ReturnsCorrectMoves_On_PossibleMoves()
         {
             var board = new Board();
             var king = new King(new Square(4, 4), board, PieceColor.White);
