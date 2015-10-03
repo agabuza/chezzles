@@ -57,7 +57,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\chezzles.Engine\chezzles.Engine.csproj">
+    <ProjectReference Include="..\chezzles.Engine\chezzles.Engine.csproj">
       <Project>{53c8f965-698a-43d0-b6f1-642d43e378a8}</Project>
       <Name>chezzles.Engine</Name>
     </ProjectReference>

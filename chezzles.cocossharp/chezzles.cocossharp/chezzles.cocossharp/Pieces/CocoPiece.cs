@@ -38,13 +38,21 @@ namespace chezzles.cocossharp.Pieces
         private bool ToucheBegan(CCTouch touch, CCEvent e)
         {
             this.initPosition = this.Position;
+            var scaledWidth = ContentSize.Width * ScaleX;
+            var scaledHeight = ContentSize.Height * ScaleY;
 
-            var rect = new CCRect(PositionWorldspace.X - ContentSize.Width / 2, 
-                PositionWorldspace.Y - ContentSize.Height / 2, ContentSize.Width , ContentSize.Height);            
+            var rect = new CCRect(
+                PositionWorldspace.X - scaledWidth / 2, 
+                PositionWorldspace.Y - scaledHeight / 2, 
+                scaledWidth, 
+                scaledHeight);            
+
             if (!rect.ContainsPoint(touch.Location))
             {
                 return false;
             }
+
+            this.Scale = this.ScaleX * 2f;
 
             return true;
         }
@@ -66,6 +74,8 @@ namespace chezzles.cocossharp.Pieces
             {
                 this.Position = this.initPosition;
             }
+
+            this.Scale = this.ScaleX * 0.5f;
         }
 
         private void Touch(CCTouch touch, CCEvent e)
