@@ -68,7 +68,11 @@ namespace chezzles.engine.Core
         {
             if (this.CanMoveTo(square))
             {
+                var oldPosition = this.position;
                 this.position = square;
+
+                this.board.Squares[oldPosition] = null;
+                this.board.Squares[this.position] = this;
                 return true;
             }
 
