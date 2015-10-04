@@ -5,6 +5,8 @@ using System.Text;
 
 namespace chezzles.engine.Core
 {
+    public delegate void PieceTakenEventHandler (object sender);
+
     public abstract class Piece
     {
         protected Square position;
@@ -18,7 +20,7 @@ namespace chezzles.engine.Core
             this.color = color;
 
             this.board.Squares[position] = this;
-        }
+        }        
 
         public abstract PieceType Type { get; }
 
@@ -37,7 +39,18 @@ namespace chezzles.engine.Core
             get { return 8; }
         }
 
+        public event PieceTakenEventHandler PieceTaken;
+
         protected abstract IEnumerable<Tuple<int, int>> GetOffsets();
+
+        internal void TakePiece()
+        {
+            this.board.Squares[this.position] = null;
+            if (this.PieceTaken != null)
+            {
+                PieceTaken(this);
+            }
+        }
 
         public virtual IEnumerable<Square> PossibleMoves()
         {
@@ -68,11 +81,9 @@ namespace chezzles.engine.Core
         {
             if (this.CanMoveTo(square))
             {
-                var oldPosition = this.position;
-                this.position = square;
+                this.board.PutPiece(square, this);
 
-                this.board.Squares[oldPosition] = null;
-                this.board.Squares[this.position] = this;
+                
                 return true;
             }
 

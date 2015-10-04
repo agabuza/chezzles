@@ -44,6 +44,13 @@ namespace chezzles.engine.Core
 
         public void PutPiece(Square square, Piece piece)
         {
+            if (this.squares[square] != null)
+            {
+                this.squares[square].TakePiece();
+            }
+
+            var oldPosition = piece.GetPosition();
+            this.squares[oldPosition] = null;
             this.squares[square] = piece;
         }
 
