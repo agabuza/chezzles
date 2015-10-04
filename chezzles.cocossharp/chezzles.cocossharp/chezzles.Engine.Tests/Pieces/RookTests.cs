@@ -40,8 +40,8 @@ namespace chezzles.Engine.Tests.Pieces
             var rook = new Rook(new Square(4, 4), board, PieceColor.White);
 
             Assert.That(rook.CanMoveTo(
-                new Square(rook.GetPosition().XPosition + offsetX,
-                           rook.GetPosition().YPosition + offsetY)));
+                new Square(rook.Position.XPosition + offsetX,
+                           rook.Position.YPosition + offsetY)));
         }
 
         [Test]

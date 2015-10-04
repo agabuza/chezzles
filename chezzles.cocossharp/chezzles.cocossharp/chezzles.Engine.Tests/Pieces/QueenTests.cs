@@ -39,8 +39,8 @@ namespace chezzles.Engine.Tests.Pieces
             var queen = new Queen(new Square(4, 4), board, PieceColor.White);
 
             Assert.That(queen.CanMoveTo(
-                new Square(queen.GetPosition().XPosition + offsetX,
-                           queen.GetPosition().YPosition + offsetY)));
+                new Square(queen.Position.XPosition + offsetX,
+                           queen.Position.YPosition + offsetY)));
         }
 
         [Test]

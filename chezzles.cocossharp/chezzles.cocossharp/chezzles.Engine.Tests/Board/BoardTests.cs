@@ -43,5 +43,17 @@ namespace chezzles.Engine.Tests.BoardTests
             Assert.That(board.Squares[newPosition] == bishop);
             Assert.That(pieceTaken);
         }
+
+        [Test]
+        public void Whether_Piece_UpdatesPosition_On_MoveTo()
+        {
+            var board = new Board();
+            var newPos = new Square(1, 6);
+            var rook = new Rook(new Square(1, 1), board, PieceColor.White);
+
+            rook.MoveTo(newPos);
+
+            Assert.That(rook.Position.Equals(newPos));
+        }
     }
 }

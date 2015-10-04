@@ -29,6 +29,12 @@ namespace chezzles.engine.Core
             get { return color; }
         }
 
+        public Square Position
+        {
+            get { return this.position; }
+            internal set { this.position = value; }
+        }
+
         public Board Board
         {
             get { return board; }
@@ -72,18 +78,11 @@ namespace chezzles.engine.Core
             }
         }
 
-        public Square GetPosition()
-        {
-            return this.position;
-        }
-
         public bool MoveTo(Square square)
         {
             if (this.CanMoveTo(square))
             {
                 this.board.PutPiece(square, this);
-
-                
                 return true;
             }
 

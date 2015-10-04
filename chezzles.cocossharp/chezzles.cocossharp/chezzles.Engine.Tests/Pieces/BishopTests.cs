@@ -39,8 +39,8 @@ namespace chezzles.Engine.Tests.Pieces
             var bishop = new Bishop(new Square(4, 4), board, PieceColor.White);
 
             Assert.That(bishop.CanMoveTo(
-                new Square(bishop.GetPosition().XPosition + offsetX,
-                           bishop.GetPosition().YPosition + offsetY)));
+                new Square(bishop.Position.XPosition + offsetX,
+                           bishop.Position.YPosition + offsetY)));
         }
 
         [Test]

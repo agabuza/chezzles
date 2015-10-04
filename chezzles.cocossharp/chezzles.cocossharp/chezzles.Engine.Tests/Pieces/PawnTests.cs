@@ -50,8 +50,8 @@ namespace chezzles.Engine.Tests.Pieces
             var pawn = new Pawn(new Square(4, 4), board, color);
 
             Assert.That(pawn.CanMoveTo(
-                new Square(pawn.GetPosition().XPosition,
-                           pawn.GetPosition().YPosition + offsetY)));
+                new Square(pawn.Position.XPosition,
+                           pawn.Position.YPosition + offsetY)));
         }
 
         [TestCase(PieceColor.White, -1)]
@@ -62,8 +62,8 @@ namespace chezzles.Engine.Tests.Pieces
             var pawn = new Pawn(new Square(4, 4), board, color);
 
             Assert.That(pawn.CanMoveTo(
-                new Square(pawn.GetPosition().XPosition,
-                           pawn.GetPosition().YPosition + offsetY)), Is.False);
+                new Square(pawn.Position.XPosition,
+                           pawn.Position.YPosition + offsetY)), Is.False);
         }
 
         [Test]

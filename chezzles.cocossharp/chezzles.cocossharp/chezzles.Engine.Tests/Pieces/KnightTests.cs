@@ -43,8 +43,8 @@ namespace chezzles.Engine.Tests.Pieces
             var knight = new Knight(new Square(5, 4), board, PieceColor.White);
 
             Assert.That(knight.CanMoveTo(
-                new Square(knight.GetPosition().XPosition + offsetX,
-                           knight.GetPosition().YPosition + offsetY)));
+                new Square(knight.Position.XPosition + offsetX,
+                           knight.Position.YPosition + offsetY)));
         }
 
         [Test]

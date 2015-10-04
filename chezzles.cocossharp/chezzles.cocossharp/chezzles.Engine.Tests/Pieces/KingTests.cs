@@ -44,8 +44,8 @@ namespace chezzles.Engine.Tests.Pieces
             var king = new King(new Square(4, 4), board, PieceColor.White);
 
             Assert.That(king.CanMoveTo(
-                new Square(king.GetPosition().XPosition + offsetX,
-                           king.GetPosition().YPosition + offsetY)));
+                new Square(king.Position.XPosition + offsetX,
+                           king.Position.YPosition + offsetY)));
         }
 
         [Test]

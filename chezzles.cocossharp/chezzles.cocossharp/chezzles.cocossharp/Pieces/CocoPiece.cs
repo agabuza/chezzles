@@ -24,6 +24,8 @@ namespace chezzles.cocossharp.Pieces
             : base(cCSpriteFrame)
         {
             this.piece = piece;
+            this.piece.PieceTaken += OnPieceTaken;
+
             AnchorPoint = CCPoint.AnchorMiddle;
             Position = this.GetPosition();
             touchListener = new CCEventListenerTouchOneByOne();
@@ -33,6 +35,11 @@ namespace chezzles.cocossharp.Pieces
             touchListener.OnTouchEnded = TouchEnded;
             touchListener.OnTouchCancelled = TouchCanceled;
             AddEventListener(touchListener, this);
+        }
+
+        private void OnPieceTaken(object sender)
+        {
+            this.RemoveFromParent();
         }
 
         private bool ToucheBegan(CCTouch touch, CCEvent e)
@@ -85,7 +92,7 @@ namespace chezzles.cocossharp.Pieces
 
         private CCPoint GetPosition()
         {
-            return this.piece.GetPosition().GetPoint(this.piece.Board.Size);
+            return this.piece.Position.GetPoint(this.piece.Board.Size);
         }
 
         private bool SetPosition(CCPoint pos)

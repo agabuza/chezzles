@@ -49,9 +49,10 @@ namespace chezzles.engine.Core
                 this.squares[square].TakePiece();
             }
 
-            var oldPosition = piece.GetPosition();
+            var oldPosition = piece.Position;
             this.squares[oldPosition] = null;
             this.squares[square] = piece;
+            piece.Position = square;
         }
 
         public bool GameFinished()
