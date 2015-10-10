@@ -39,6 +39,9 @@
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="pgn.pack">
+      <HintPath>..\..\libs\pgn.pack.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Board\BoardTests.cs" />
+    <Compile Include="GameParser\GameParserTests.cs" />
     <Compile Include="Pieces\BishopTests.cs" />
     <Compile Include="Pieces\KingTests.cs" />
     <Compile Include="Pieces\KnightTests.cs" />
@@ -64,7 +68,6 @@
       <Name>chezzles.Engine</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

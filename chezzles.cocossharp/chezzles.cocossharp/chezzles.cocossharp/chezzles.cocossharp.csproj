@@ -50,9 +50,6 @@
     <Reference Include="MonoGame.Framework, Version=3.1.2.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\..\packages\CocosSharp.PCL.Shared.1.5.0.1\lib\portable-net45+win+wpa81+wp80\MonoGame.Framework.dll</HintPath>
     </Reference>
-    <Reference Include="pgn.NET">
-      <HintPath>..\..\libs\pgn.NET.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

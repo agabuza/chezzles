@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ilf.pgn;
 
-namespace chezzles.engine.Core
+namespace chezzles.engine.Core.Game
 {
-    class Game
+    public class Game 
     {
     }
 }
