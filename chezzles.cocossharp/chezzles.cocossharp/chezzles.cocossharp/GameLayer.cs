@@ -44,19 +44,19 @@ namespace chezzles.cocossharp
         {
             var bishop = this.pieceBuilder.Build(new Bishop(new Square(2, 2), board, PieceColor.Black));
             bishop.Scale = this.scaleFactor - 0.5f;
-            this.AddChild(bishop, 1);
+            this.AddChild(bishop, 99);
 
             var rook = this.pieceBuilder.Build(new Rook(new Square(1, 1), board, PieceColor.White));
             rook.Scale = this.scaleFactor - 0.5f;
-            this.AddChild(rook, 1);
+            this.AddChild(rook, 99);
 
             var queen = this.pieceBuilder.Build(new Queen(new Square(7, 2), board, PieceColor.Black));
             queen.Scale = this.scaleFactor - 0.5f;
-            this.AddChild(queen, 1);
+            this.AddChild(queen, 99);
 
             var knight = this.pieceBuilder.Build(new Knight(new Square(7, 4), board, PieceColor.White));
             knight.Scale = this.scaleFactor - 0.5f;
-            this.AddChild(knight, 1);
+            this.AddChild(knight, 99);
         }
 
         protected override void AddedToScene()

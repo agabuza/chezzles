@@ -12,6 +12,9 @@ namespace chezzles.cocossharp.Pieces
         private Piece piece;
         private CCEventListenerTouchOneByOne touchListener;
         private CCPoint initPosition;
+        private CCDrawNode drawNode;
+        private Square lastMovePosition;
+        private CCDrawNode possibleMoves;
 
         public float radius { get { return ContentSize.Width * 0.5f; } }
 
@@ -59,14 +62,25 @@ namespace chezzles.cocossharp.Pieces
                 return false;
             }
 
+            this.AnchorPoint = new CCPoint(0.2f, 0.2f);
             this.Scale = this.ScaleX * 2f;
-
+            this.DrawPossibleMoves();
             return true;
+        }
+
+        private void DrawPossibleMoves()
+        {
+            foreach (var point in this.piece.PossibleMoves().Select(x => x.GetPoint(this.piece.Board.Size)))
+            {
+                this.possibleMoves.DrawSolidCircle(point, 4, CCColor4B.AliceBlue);
+            }
         }
 
         private void TouchCanceled(CCTouch touch, CCEvent e)
         {
             this.Position = this.initPosition;
+            drawNode.Clear();
+            possibleMoves.Clear();
         }
 
         private void TouchEnded(CCTouch touch, CCEvent e)
@@ -82,11 +96,29 @@ namespace chezzles.cocossharp.Pieces
                 this.Position = this.initPosition;
             }
 
+            this.AnchorPoint = CCPoint.AnchorMiddle;
             this.Scale = this.ScaleX * 0.5f;
+            drawNode.Clear();
+            possibleMoves.Clear();
         }
 
         private void Touch(CCTouch touch, CCEvent e)
         {
+            var square = touch.Location.GetSquare(this.piece.Board.Size);
+            if (!square.Equals(this.lastMovePosition))
+            {
+                drawNode.Clear();
+                this.lastMovePosition = square;
+
+                if (this.piece.CanMoveTo(square))
+                {
+                    var color = new CCColor4B(30, 144, 255, 0x66);
+                    var point = square.GetPoint(this.piece.Board.Size);
+                    drawNode.DrawSolidCircle(point, this.ScaleX * 8f, color);
+                    drawNode.Visit();
+                }
+            }
+
             this.Position = touch.Location;
         }
 
@@ -114,6 +146,13 @@ namespace chezzles.cocossharp.Pieces
         protected override void AddedToScene()
         {
             base.AddedToScene();
+
+
+            this.possibleMoves = new CCDrawNode();
+            this.Parent.AddChild(this.possibleMoves, 1);
+
+            drawNode = new CCDrawNode();
+            this.Parent.AddChild(drawNode, 1);
         }
     }
 }

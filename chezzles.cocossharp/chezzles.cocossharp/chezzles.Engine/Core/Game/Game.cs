@@ -8,5 +8,19 @@ namespace chezzles.engine.Core.Game
 {
     public class Game 
     {
+        private Board board;
+
+        public Board Board
+        {
+            get
+            {
+                return board;
+            }
+        }
+
+        public Game()
+        {
+
+        }
     }
 }

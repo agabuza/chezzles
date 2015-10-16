@@ -7,6 +7,8 @@ namespace chezzles.engine.Core
 {
     public class Board
     {
+
+
         private Dictionary<Square, Piece> squares;
         private float size;
 
