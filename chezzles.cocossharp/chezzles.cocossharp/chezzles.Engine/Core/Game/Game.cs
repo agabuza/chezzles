@@ -9,9 +9,10 @@ using chezzles.engine.Pieces.Builder;
 
 namespace chezzles.engine.Core.Game
 {
-    public class Game 
+    public class Game
     {
         private Board board;
+        private IPieceBuilder builder = new PieceBuilder();
 
         public Board Board
         {
@@ -23,7 +24,17 @@ namespace chezzles.engine.Core.Game
 
         public Game(PgnGame game)
         {
-            this.board = new Board(game);
+            this.board = new Board();
+            for (int i = 1; i <= 8; i++)
+                for (int j = 1; j <= 8; j++)
+                {
+                    var piece = this.builder.BuildPiece(game.BoardSetup[i, j]);
+                    if (piece != null)
+                    {
+                        piece.Board = this.board;
+                        this.board.PutPiece(new Square(i, j), piece);
+                    }
+                }
         }
     }
 }

@@ -11,28 +11,10 @@ namespace chezzles.engine.Core
     {
         private Dictionary<Square, Piece> squares;
         private float size;
-        private IPieceBuilder builder = new PieceBuilder();
 
         public Board()
             : this(400)
         {
-        }
-
-        internal Board(PgnGame game)
-        {
-            this.squares = new Dictionary<Square, Piece>();
-            for (int i = 1; i <= 8; i++)
-                for (int j = 1; j <= 8; j++)
-                {
-                    var piece = this.builder.BuildPiece(game.BoardSetup[i, j]);
-                    if (piece != null)
-                    {
-                        piece.Position = new Square(i, j);
-                        piece.Board = this;
-                    }
-
-                    this.squares.Add(new Square(i, j), piece);
-                }
         }
 
         public Board(float size)
