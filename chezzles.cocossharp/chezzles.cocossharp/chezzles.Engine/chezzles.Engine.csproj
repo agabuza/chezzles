@@ -43,6 +43,7 @@
     <Compile Include="Core\Game\GameParser.cs" />
     <Compile Include="Pieces\Bishop.cs" />
     <Compile Include="Pieces\Builder\IPieceBuilder.cs" />
+    <Compile Include="Pieces\Builder\PieceBuilder.cs" />
     <Compile Include="Pieces\King.cs" />
     <Compile Include="Pieces\Knight.cs" />
     <Compile Include="Pieces\Pawn.cs" />

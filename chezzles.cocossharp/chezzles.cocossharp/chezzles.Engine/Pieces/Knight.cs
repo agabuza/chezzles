@@ -13,6 +13,11 @@ namespace chezzles.engine.Pieces
         {
         }
 
+        public Knight(PieceColor color)
+        {
+            this.color = color;
+        }
+
         public override PieceType Type
         {
             get

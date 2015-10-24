@@ -8,6 +8,11 @@ namespace chezzles.engine.Pieces
 {
     public class Queen : Piece
     {
+        public Queen(PieceColor color)
+        {
+            this.color = color;
+        }
+
         public Queen(Square square, Board board, PieceColor color)
             : base(square, board, color)
         {

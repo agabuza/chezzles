@@ -8,6 +8,15 @@ namespace chezzles.engine.Pieces
 {
     public class Bishop : Piece
     {
+        public Bishop()
+        {
+        }
+
+        public Bishop(PieceColor color)
+        {
+            this.color = color;
+        }
+
         public Bishop(Square square, Board board, PieceColor color)
             : base(square, board, color)
         {

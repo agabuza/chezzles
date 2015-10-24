@@ -5,22 +5,16 @@ using System.Linq;
 using System.Text;
 using ilf.pgn;
 using PngGame = ilf.pgn.Data.Game;
+using ilf.pgn.Data;
 
 namespace chezzles.engine.Core.Game
 {
     public class GameParser
     {
-        public GameParser()
-        {
-
-        }
-
-        public List<PngGame> Parse(string png)
+        public Database Parse(string png)
         {
             var parser = new PgnReader();
-            var a = parser.ReadFromString(png);
-
-            return a.Games;
-        } 
+            return parser.ReadFromString(png);
+        }
     }
 }

@@ -46,7 +46,7 @@ namespace chezzles.Engine.Tests
         public void Whether_GameParser_ParsesGame_On_Parse()
         {
             var parser = new GameParser();
-            var result = parser.Parse(game);
+            var result = (string) null;// parser.Parse(game);
             Assert.That(result != null);
         }
 
@@ -54,7 +54,7 @@ namespace chezzles.Engine.Tests
         public void Whether_GameParser_ParsesFENGame_On_Parse()
         {
             var parser = new GameParser();
-            var result = parser.Parse(fenGame);
+            var result = (string) null;//parser.Parse(fenGame);
             Assert.That(result != null);
         }
     }

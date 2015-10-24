@@ -11,7 +11,7 @@ namespace chezzles.engine.Core
     {
         protected Square position;
         protected Board board;
-        private PieceColor color;
+        protected PieceColor color;
 
         public Piece(Square position, Board board, PieceColor color)
         {
@@ -21,6 +21,10 @@ namespace chezzles.engine.Core
 
             this.board.Squares[position] = this;
         }        
+
+        public Piece()
+        {
+        }
 
         public abstract PieceType Type { get; }
 
@@ -38,7 +42,8 @@ namespace chezzles.engine.Core
         public Board Board
         {
             get { return board; }
-        }
+            internal set { this.board = value; }
+        }        
 
         protected virtual int MaxRange
         {

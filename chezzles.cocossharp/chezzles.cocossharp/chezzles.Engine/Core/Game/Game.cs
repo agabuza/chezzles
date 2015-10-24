@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ilf.pgn;
+using ilf.pgn.Data;
+//using ilf.pgn;
+using PgnGame = ilf.pgn.Data.Game;
+using chezzles.engine.Pieces.Builder;
 
 namespace chezzles.engine.Core.Game
 {
@@ -18,9 +21,9 @@ namespace chezzles.engine.Core.Game
             }
         }
 
-        public Game()
+        public Game(PgnGame game)
         {
-
+            this.board = new Board(game);
         }
     }
 }
