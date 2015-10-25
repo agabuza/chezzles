@@ -22,7 +22,7 @@ namespace chezzles.engine.Core.Game
             }
         }
 
-        public Game(PgnGame game)
+        internal Game(PgnGame game)
         {
             this.board = new Board();
             for (int i = 0; i <= 7; i++)

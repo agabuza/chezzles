@@ -76,5 +76,10 @@ namespace chezzles.engine.Core
         {
             return this.Squares.ContainsKey(square) && this.Squares[square] == null;
         }
+
+        public void SetSize(float width)
+        {
+            this.size = width;
+        }
     }
 }

@@ -41,6 +41,8 @@
     <Compile Include="Core\PieceType.cs" />
     <Compile Include="Core\Square.cs" />
     <Compile Include="Core\Game\GameParser.cs" />
+    <Compile Include="Data\GamesStorage.cs" />
+    <Compile Include="Data\IGamesStorage.cs" />
     <Compile Include="Pieces\Bishop.cs" />
     <Compile Include="Pieces\Builder\IPieceBuilder.cs" />
     <Compile Include="Pieces\Builder\PieceBuilder.cs" />
