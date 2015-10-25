@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Board\BoardTests.cs" />
     <Compile Include="GameParser\GameParserTests.cs" />
+    <Compile Include="Game\GameTests.cs" />
     <Compile Include="Pieces\BishopTests.cs" />
     <Compile Include="Pieces\KingTests.cs" />
     <Compile Include="Pieces\KnightTests.cs" />

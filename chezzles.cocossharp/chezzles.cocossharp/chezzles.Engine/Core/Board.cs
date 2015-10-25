@@ -7,7 +7,7 @@ using PgnGame = ilf.pgn.Data.Game;
 
 namespace chezzles.engine.Core
 {
-    public class Board
+    public sealed class Board
     {
         private Dictionary<Square, Piece> squares;
         private float size;
@@ -42,6 +42,16 @@ namespace chezzles.engine.Core
         {
             get { return squares; }
             set { squares = value; }
+        }
+
+        public IEnumerable<Piece> Pieces
+        {
+            get
+            {
+                return this.squares
+                    .Where(x => x.Value != null)
+                    .Select(x => x.Value);
+            }
         }
 
         public void PutPiece(Square square, Piece piece)

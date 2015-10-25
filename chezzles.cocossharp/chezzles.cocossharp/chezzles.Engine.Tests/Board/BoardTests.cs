@@ -14,7 +14,7 @@ namespace chezzles.Engine.Tests.BoardTests
     {
         [Test]
         public void Whether_Board_UpdatesPositionOnBoard_On_MoveTo()
-       {
+        {
             var board = new Board();
             var originalPosition = new Square(5, 4);
             var newPosition = new Square(4, 3);
@@ -54,6 +54,36 @@ namespace chezzles.Engine.Tests.BoardTests
             rook.MoveTo(newPos);
 
             Assert.That(rook.Position.Equals(newPos));
+        }
+
+        [Test]
+        public void Whether_Board_RemovesPiece_On_PutPiece()
+        {
+            var board = new Board();
+            var originalPosition = new Square(5, 4);
+            var newPosition = new Square(4, 3);
+
+            var bishop = new Bishop(originalPosition, board, PieceColor.White);
+            var knight = new Bishop(newPosition, board, PieceColor.Black);
+
+            board.PutPiece(newPosition, bishop);
+
+            Assert.That(board.Pieces != null);
+            Assert.That(board.Pieces.Count() == 1);
+        }
+
+        [Test]
+        public void Whether_Board_AddsPieces_On_PutPiece()
+        {
+            var board = new Board();
+            var originalPosition = new Square(5, 4);
+            var newPosition = new Square(4, 3);
+
+            var bishop = new Bishop(originalPosition, board, PieceColor.White);
+            var knight = new Bishop(newPosition, board, PieceColor.Black);
+
+            Assert.That(board.Pieces != null);
+            Assert.That(board.Pieces.Count() == 2);
         }
     }
 }
