@@ -7,51 +7,12 @@ using System.Threading.Tasks;
 
 namespace chezzles.cocossharp.Menu
 {
-    public class CCButton : CCNode
+    public delegate void ClickEventArgs(object sender);
+
+    public class CCButton : CCSprite
     {
-        private CCLabel DisplayText { get; set; }
-
-        private string text;
-        public string Text
-        {
-            get
-            {
-                return text;
-            }
-            set
-            {
-                if (value != null && value != text && value.Length > 0)
-                {
-                    text = value;
-                    RefreshText();
-                }
-            }
-        }
-
-        private int fontSize = 12;
-        public int FontSize
-        {
-            get
-            {
-                return fontSize;
-            }
-            set
-            {
-                fontSize = value;
-                RefreshText();
-            }
-        }
-
-        private void RefreshText()
-        {
-            if (DisplayText != null)
-            {
-                this.RemoveChild(DisplayText);
-            }
-            DisplayText = new CCLabel(text, "No Label", FontSize);
-            DisplayText.Position = new CCPoint(ContentSize.Width / 2, ContentSize.Height / 2);
-            this.AddChild(DisplayText, 2);
-        }
+        private CCEventListenerTouchOneByOne touchListener;
+        private float initialScale;
 
         public CCButton(float width, float height)
         {
@@ -63,56 +24,61 @@ namespace chezzles.cocossharp.Menu
             InitWithRect(x, y, width, height);
         }
 
+        public CCButton(CCSpriteFrame frame)
+            : base(frame)
+        {
+            Init(frame.ContentSize.Width, frame.ContentSize.Height);
+        }
+
         public virtual void Init(float width, float height)
         {
-            EventListener = new CCEventListenerTouchOneByOne()
-            {
-                OnTouchBegan = OnTouchBegan,
-                OnTouchEnded = OnTouchEnded,
-            };
             ContentSize = new CCSize(width, height);
+            touchListener = new CCEventListenerTouchOneByOne();
+
+            touchListener.OnTouchBegan = ToucheBegan;
+            touchListener.OnTouchEnded = TouchEnded;
+            AddEventListener(touchListener, this);
         }
 
-        public virtual void InitWithRect(float x, float y, float width, float height)
+        public event ClickEventArgs Click;
+
+        private void TouchEnded(CCTouch touch, CCEvent e)
         {
-            Init(width, height);
-
-            Position = new CCPoint(x, y);
-        }
-
-        public Action OnClick { get; set; }
-
-        public CCEventListenerTouchOneByOne EventListener { get; set; }
-
-        private bool OnTouchBegan(CCTouch touch, CCEvent e)
-        {
-            if (!Visible)
+            this.Scale = this.initialScale;
+            if (this.Click != null)
             {
-                return false;
+                this.Click(this);
             }
+        }
 
-            var rect = new CCRect(PositionWorldspace.X, PositionWorldspace.Y, ContentSize.Width, ContentSize.Height);
+        private bool ToucheBegan(CCTouch touch, CCEvent e)
+        {
+            var scaledWidth = ContentSize.Width * ScaleX;
+            var scaledHeight = ContentSize.Height * ScaleY;
+
+            var rect = new CCRect(
+                PositionWorldspace.X - scaledWidth / 2,
+                PositionWorldspace.Y - scaledHeight / 2,
+                scaledWidth,
+                scaledHeight);
+
             if (!rect.ContainsPoint(touch.Location))
             {
                 return false;
             }
 
-            OnKeyDown();
+            this.initialScale = this.ScaleX;
+            this.Scale = this.initialScale * 0.9f;
+
             return true;
         }
 
-        private void OnTouchEnded(CCTouch touch, CCEvent e)
+        public virtual void InitWithRect(float x, float y, float width, float height)
         {
-            OnKeyUp();
+            Init(width, height);
+            Position = new CCPoint(x, y);
         }
 
-        protected virtual void OnKeyDown()
-        {
-            OnClick();
-        }
-
-        protected virtual void OnKeyUp()
-        {
-        }
+        public Action OnClick { get; set; }
     }
 }

@@ -72,7 +72,7 @@ namespace chezzles.cocossharp.Pieces
         {
             foreach (var point in this.piece.PossibleMoves().Select(x => x.GetPoint(this.piece.Board.Size)))
             {
-                this.possibleMoves.DrawSolidCircle(point, 4, CCColor4B.AliceBlue);
+                this.possibleMoves.DrawSolidCircle(point, 4, CCColor4B.LightGray);
             }
         }
 
@@ -146,7 +146,6 @@ namespace chezzles.cocossharp.Pieces
         protected override void AddedToScene()
         {
             base.AddedToScene();
-
 
             this.possibleMoves = new CCDrawNode();
             this.Parent.AddChild(this.possibleMoves, 1);
