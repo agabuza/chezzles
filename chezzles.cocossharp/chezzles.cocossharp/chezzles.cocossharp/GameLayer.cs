@@ -6,6 +6,9 @@ using chezzles.engine.Pieces;
 using chezzles.engine.Core;
 using chezzles.engine.Data;
 using System.Linq;
+using chezzles.cocossharp.Extensions;
+using chezzles.cocossharp.Menu;
+using System.Diagnostics;
 
 namespace chezzles.cocossharp
 {
@@ -15,7 +18,12 @@ namespace chezzles.cocossharp
         private Board board;
         private CCTileMap tileMap;
         private float scaleFactor = 4;
-        public static CCPoint Origin = new CCPoint(0, 0);
+
+        // change hardcoded values to get correct board place
+        public static CCPoint Origin = new CCPoint(0, 400);
+        private CCButton pauseButton;
+        private CCButton nextButton;
+        private CCLabel score;
 
         public GameLayer(CCSize size)
             : base(size)
@@ -26,6 +34,34 @@ namespace chezzles.cocossharp
             AddEventListener(touchListener, this);
             this.pieceBuilder = new CocoPieceBuilder();
             Color = CCColor3B.Green;
+        }
+
+        private void InitializeMenu()
+        {
+            var cache = CCSpriteFrameCache.SharedSpriteFrameCache;
+            cache.AddSpriteFrames("hd/buttons.plist");
+
+            this.pauseButton = new CCButton(cache["btn_pause.png"])
+                       .ScaleToSize(330, 150)
+                       .PlaceAt(.2f, .9f, 101, this);
+
+            this.pauseButton.Click += (s) =>
+            {
+            };
+
+            this.nextButton = new CCButton(cache["btn_next.png"])
+                .ScaleToSize(330, 150)
+                .PlaceAt(.8f, .9f, 101, this);
+
+            this.nextButton.Click += (s) =>
+            {
+
+            };
+
+            this.score = new CCLabel("Score 100% out of 12 puzzles", "arial", 36f)
+                .PlaceAt(.2f, .1f, 101, this)
+                .WithTextCentered();
+
         }
 
         private void AddBoard()
@@ -40,26 +76,6 @@ namespace chezzles.cocossharp
 
             tileMap.Antialiased = false;
             this.AddChild(tileMap, -1);
-        }
-
-        private void AddPieces()
-        {
-            this.DrawBoard(this);
-            //var bishop = this.pieceBuilder.Build(new Bishop(new Square(2, 2), board, PieceColor.Black));
-            //bishop.Scale = this.scaleFactor - 0.5f;
-            //this.AddChild(bishop, 99);
-
-            //var rook = this.pieceBuilder.Build(new Rook(new Square(1, 1), board, PieceColor.White));
-            //rook.Scale = this.scaleFactor - 0.5f;
-            //this.AddChild(rook, 99);
-
-            //var queen = this.pieceBuilder.Build(new Queen(new Square(7, 2), board, PieceColor.Black));
-            //queen.Scale = this.scaleFactor - 0.5f;
-            //this.AddChild(queen, 99);
-
-            //var knight = this.pieceBuilder.Build(new Knight(new Square(7, 4), board, PieceColor.White));
-            //knight.Scale = this.scaleFactor - 0.5f;
-            //this.AddChild(knight, 99);
         }
 
         private void DrawBoard(CCNode gameLayer)
@@ -80,17 +96,12 @@ namespace chezzles.cocossharp
             base.AddedToScene();
             Scene.SceneResolutionPolicy = CCSceneResolutionPolicy.ShowAll;
             AddBoard();
-            AddPieces();
+            this.DrawBoard(this);
+            this.InitializeMenu();
         }
 
         private void OnTouchesEnded(List<CCTouch> arg1, CCEvent arg2)
         {
-        }
-
-        private void ScaleToSize(CCNode sprite, float width, float height)
-        {
-            sprite.ScaleX = width / sprite.ContentSize.Width;
-            sprite.ScaleY = height / sprite.ContentSize.Height;
         }
     }
 }

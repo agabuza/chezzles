@@ -32,9 +32,8 @@ namespace chezzles.Engine.Tests.GameTests
         public void Whether_Game_ParsesPgnGame_On_Construct()
         {
             var parser = new GameParser();
-            var pgnGame = parser.Parse(fenGame).Games.FirstOrDefault();
 
-            var game = new Game(pgnGame);
+            var game = parser.Parse(fenGame).FirstOrDefault();            
 
             Assert.That(game.Board != null);
             Assert.That(game.Board.Pieces.Count() == 17);

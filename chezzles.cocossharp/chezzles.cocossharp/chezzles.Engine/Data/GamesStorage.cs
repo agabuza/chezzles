@@ -30,11 +30,11 @@ namespace chezzles.engine.Data
         public IEnumerable<Game> GetGames()
         {
             var parser = new GameParser();
-            var db = parser.Parse(fenGame);
+            var games = parser.Parse(fenGame);
 
-            foreach(var pgnGame in db.Games)
+            foreach(var game in games)
             {
-                yield return new Game(pgnGame);
+                yield return game;
             }
         }
     }

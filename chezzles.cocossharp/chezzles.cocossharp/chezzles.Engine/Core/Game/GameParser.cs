@@ -1,20 +1,18 @@
-﻿using chezzles.engine.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using ilf.pgn;
-using PngGame = ilf.pgn.Data.Game;
-using ilf.pgn.Data;
+using AutoMapper;
+using chezzles.engine.MapperSetup;
 
 namespace chezzles.engine.Core.Game
 {
     public class GameParser
     {
-        public Database Parse(string png)
+        private AutoMapperConfiguration config = new AutoMapperConfiguration();
+        public IEnumerable<Game> Parse(string png)
         {
             var parser = new PgnReader();
-            return parser.ReadFromString(png);
+            var db = parser.ReadFromString(png);
+            return Mapper.Map<IEnumerable<Game>>(db);
         }
     }
 }

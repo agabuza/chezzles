@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="Core\Board.cs" />
     <Compile Include="Core\Game\Game.cs" />
+    <Compile Include="Core\Game\Move.cs" />
     <Compile Include="Core\Piece.cs" />
     <Compile Include="Core\PieceColor.cs" />
     <Compile Include="Core\PieceType.cs" />
@@ -43,9 +44,12 @@
     <Compile Include="Core\Game\GameParser.cs" />
     <Compile Include="Data\GamesStorage.cs" />
     <Compile Include="Data\IGamesStorage.cs" />
+    <Compile Include="MapperSetup\AutoMapperConfiguration.cs" />
+    <Compile Include="MapperSetup\PgnGameMappingProfile.cs" />
     <Compile Include="Pieces\Bishop.cs" />
     <Compile Include="Pieces\Builder\IPieceBuilder.cs" />
     <Compile Include="Pieces\Builder\PieceBuilder.cs" />
+    <Compile Include="Pieces\Builder\PieceTypeConverter.cs" />
     <Compile Include="Pieces\King.cs" />
     <Compile Include="Pieces\Knight.cs" />
     <Compile Include="Pieces\Pawn.cs" />
@@ -54,9 +58,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.4.1.1\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+Xamarin.iOS10+MonoTouch10\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="pgn.pack">
       <HintPath>..\..\libs\pgn.pack.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
