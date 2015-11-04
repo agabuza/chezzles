@@ -9,13 +9,13 @@ using System.Linq;
 using chezzles.cocossharp.Extensions;
 using chezzles.cocossharp.Menu;
 using System.Diagnostics;
+using chezzles.engine.Core.Game;
 
 namespace chezzles.cocossharp
 {
     public class GameLayer : CCLayerColor
     {
         private CocoPieceBuilder pieceBuilder;
-        private Board board;
         private CCTileMap tileMap;
         private float scaleFactor = 4;
 
@@ -24,6 +24,8 @@ namespace chezzles.cocossharp
         private CCButton pauseButton;
         private CCButton nextButton;
         private CCLabel score;
+        private GamesStorage storage;
+        private int index;
 
         public GameLayer(CCSize size)
             : base(size)
@@ -34,6 +36,8 @@ namespace chezzles.cocossharp
             AddEventListener(touchListener, this);
             this.pieceBuilder = new CocoPieceBuilder();
             Color = CCColor3B.Green;
+
+            this.storage = new GamesStorage();
         }
 
         private void InitializeMenu()
@@ -55,13 +59,27 @@ namespace chezzles.cocossharp
 
             this.nextButton.Click += (s) =>
             {
-
+                var game = this.storage.Get(++this.index);
+                if (game != null)
+                {
+                    ClearBoard();
+                    DrawBoard(this, game);
+                }
             };
 
             this.score = new CCLabel("Score 100% out of 12 puzzles", "arial", 36f)
                 .PlaceAt(.2f, .1f, 101, this)
                 .WithTextCentered();
 
+        }
+
+        private void ClearBoard()
+        {
+            var pieces = this.Children.OfType<CocoPiece>().ToList();
+            foreach(var piece in pieces)
+            {
+                this.RemoveChild(piece);
+            }
         }
 
         private void AddBoard()
@@ -78,10 +96,8 @@ namespace chezzles.cocossharp
             this.AddChild(tileMap, -1);
         }
 
-        private void DrawBoard(CCNode gameLayer)
+        private void DrawBoard(CCNode gameLayer, Game game)
         {
-            var storage = new GamesStorage();
-            var game = storage.GetGames().FirstOrDefault();
             game.Board.SetSize(Window.WindowSizeInPixels.Width);
             foreach (var piece in game.Board.Pieces)
             {
@@ -96,7 +112,6 @@ namespace chezzles.cocossharp
             base.AddedToScene();
             Scene.SceneResolutionPolicy = CCSceneResolutionPolicy.ShowAll;
             AddBoard();
-            this.DrawBoard(this);
             this.InitializeMenu();
         }
 

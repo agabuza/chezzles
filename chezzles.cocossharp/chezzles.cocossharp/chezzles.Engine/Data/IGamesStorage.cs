@@ -5,6 +5,6 @@ namespace chezzles.engine.Data
 {
     public interface IGameStorage
     {
-        IEnumerable<Game> GetGames();
+        IEnumerable<Game> All();
     }
 }
