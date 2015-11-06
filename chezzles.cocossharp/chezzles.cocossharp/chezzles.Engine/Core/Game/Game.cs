@@ -8,6 +8,6 @@ namespace chezzles.engine.Core.Game
 
         public List<Move> Moves { get; set; }
 
-        public bool IsWhiteMove { get; set; }
+
     }
 }

@@ -27,6 +27,13 @@ namespace chezzles.Engine.Tests.BoardTests
         }
 
         [Test]
+        public void Whether_Board_InitializesIsWhiteMoveToDefault_On_Contruct()
+        {
+            var board = new Board();
+            Assert.That(board.IsWhiteMove);
+        }
+
+        [Test]
         public void Whether_Board_InvokesPieceTaken_On_Caprute()
         {
             var board = new Board();
@@ -54,6 +61,21 @@ namespace chezzles.Engine.Tests.BoardTests
             rook.MoveTo(newPos);
 
             Assert.That(rook.Position.Equals(newPos));
+        }
+
+        [Test]
+        public void Whether_Piece_CantMoveWhenIsWhiteMove_On_MoveTo()
+        {
+            var board = new Board();
+            var newPos = new Square(1, 6);
+            var oldPos = new Square(1, 1);
+            var rook = new Rook(oldPos, board, PieceColor.Black);
+
+            var hasMoved = rook.MoveTo(newPos);
+
+            Assert.That(board.IsWhiteMove);
+            Assert.That(rook.Position.Equals(oldPos));
+            Assert.That(!hasMoved);
         }
 
         [Test]

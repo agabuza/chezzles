@@ -85,13 +85,18 @@ namespace chezzles.engine.Core
 
         public bool MoveTo(Square square)
         {
-            if (this.CanMoveTo(square))
+            if (this.CanMoveTo(square) && this.CanColorMove())
             {
                 this.board.PutPiece(square, this);
                 return true;
             }
 
             return false;
+        }
+
+        internal bool CanColorMove()
+        {
+            return this.Color == PieceColor.White ? this.board.IsWhiteMove : !this.board.IsWhiteMove;
         }
 
         public virtual bool CanMoveTo(Square square)

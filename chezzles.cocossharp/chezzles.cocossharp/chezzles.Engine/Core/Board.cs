@@ -12,12 +12,21 @@ namespace chezzles.engine.Core
         private Dictionary<Square, Piece> squares;
         private float size;
 
+        public bool IsWhiteMove { get; internal set; }
+
         public Board()
-            : this(400)
         {
+            this.IsWhiteMove = true;
+            PopulateSquares(400);
         }
 
         public Board(float size)
+        {
+            this.IsWhiteMove = true;
+            PopulateSquares(size);
+        }
+
+        private void PopulateSquares(float size)
         {
             this.size = size;
             this.squares = new Dictionary<Square, Piece>();
@@ -35,7 +44,9 @@ namespace chezzles.engine.Core
 
         public Board(Dictionary<Square, Piece> squares)
         {
+            this.IsWhiteMove = true;
             this.squares = squares;
+            this.size = 400;
         }
 
         public Dictionary<Square, Piece> Squares
