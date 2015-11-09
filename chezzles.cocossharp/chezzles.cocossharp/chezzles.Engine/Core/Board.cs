@@ -72,10 +72,14 @@ namespace chezzles.engine.Core
                 this.squares[square].TakePiece();
             }
 
+            // Put piece in a new position
             var oldPosition = piece.Position;
             this.squares[oldPosition] = null;
             this.squares[square] = piece;
             piece.Position = square;
+
+            // Now it's opposite color to move
+            this.IsWhiteMove = !this.IsWhiteMove;
         }
 
         public bool GameFinished()

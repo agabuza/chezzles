@@ -16,8 +16,6 @@ namespace chezzles.cocossharp
 
         // change hardcoded values to get correct board place
         public static CCPoint Origin = new CCPoint(0, 0);
-        //private CCButton pauseButton;
-        //private CCButton nextButton;
         private GamesStorage storage;
         private int index;
 
@@ -101,7 +99,6 @@ namespace chezzles.cocossharp
         protected override void AddedToScene()
         {
             base.AddedToScene();
-            //Scene.SceneResolutionPolicy = CCSceneResolutionPolicy.ShowAll;
             AddBoard();
             this.InitializeMenu();
         }

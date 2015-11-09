@@ -1,5 +1,6 @@
 ﻿using chezzles.engine.Core;
 using chezzles.engine.Pieces;
+using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -61,6 +62,21 @@ namespace chezzles.Engine.Tests.BoardTests
             rook.MoveTo(newPos);
 
             Assert.That(rook.Position.Equals(newPos));
+        }
+
+        [Test]
+        public void Whether_Board_UpdatesIsWhiteMove_On_MoveTo()
+        {
+            var board = new Board();
+            var newPos = new Square(1, 6);
+            var oldPos = new Square(1, 1);
+            var rook = new Rook(oldPos, board, PieceColor.White);
+
+            var hasMoved = rook.MoveTo(newPos);
+
+            Assert.That(rook.Position.Equals(newPos));
+            Assert.IsFalse(board.IsWhiteMove);
+            Assert.That(hasMoved);
         }
 
         [Test]

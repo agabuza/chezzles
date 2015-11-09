@@ -17,7 +17,9 @@ namespace chezzles.cocossharp.Views
             {
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 VerticalOptions = LayoutOptions.FillAndExpand,
-                DesignResolution = new Size(100, 100),
+                // BUG: this needs to be initialized. 
+                // Otherwise ContentSize of page will be negative.
+                DesignResolution = new Size(1, 1),
                 ViewCreated = LoadGame
             };
            
