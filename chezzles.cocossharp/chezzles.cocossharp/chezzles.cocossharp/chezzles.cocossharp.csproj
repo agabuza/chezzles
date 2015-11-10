@@ -34,10 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
-    <Compile Include="Extensions\CCNodeExtensions.cs" />
     <Compile Include="Extensions\CCPointExtensions.cs" />
-    <Compile Include="Extensions\CocoExtensions.cs" />
-    <Compile Include="Extensions\TouchHelper.cs" />
     <Compile Include="GameLayer.cs" />
     <Compile Include="Pieces\CocoPiece.cs" />
     <Compile Include="Pieces\CocoPieceBuilder.cs" />

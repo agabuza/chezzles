@@ -30,12 +30,10 @@ namespace chezzles.engine.Data
 1... Rh3 2. Qd1 Qd2 3. Rf1 Qxd1+ 0-1
 ";
         private List<Game> games;
-        private bool initialized;
 
         public GamesStorage()
         {
             this.Init();
-            this.initialized = true;
         }
 
         private void Init()

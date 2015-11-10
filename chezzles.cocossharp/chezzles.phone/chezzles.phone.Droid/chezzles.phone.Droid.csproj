@@ -93,6 +93,7 @@
   <ItemGroup>
     <AndroidAsset Include="Assets\Content\fonts\MarkerFelt-22.xnb" />
     <AndroidAsset Include="Assets\Content\tilemaps\board.tmx" />
+    <AndroidAsset Include="Assets\LeagueGothic-Regular.otf" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
@@ -132,6 +133,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Controls\" />
     <Folder Include="Resources\layout\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

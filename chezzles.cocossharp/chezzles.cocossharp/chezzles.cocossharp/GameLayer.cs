@@ -24,39 +24,7 @@ namespace chezzles.cocossharp
         {
             this.pieceBuilder = new CocoPieceBuilder();
             this.storage = new GamesStorage();
-        }
-
-        private void InitializeMenu()
-        {
-            //var cache = CCSpriteFrameCache.SharedSpriteFrameCache;
-            //cache.AddSpriteFrames("hd/buttons.plist");
-            
-            //this.pauseButton = new CCButton(cache["btn_pause.png"])
-            //           .ScaleToSize(330, 150)
-            //           .PlaceAt(.2f, .9f, 101, this);
-
-            //this.pauseButton.Click += (s) =>
-            //{
-            //};
-
-            //this.nextButton = new CCButton(cache["btn_next.png"])
-            //    .ScaleToSize(330, 150)
-            //    .PlaceAt(.8f, .9f, 101, this);
-
-            //this.nextButton.Click += (s) =>
-            //{
-            //    var game = this.storage.Get(++this.index);
-            //    if (game != null)
-            //    {
-            //        ClearBoard();
-            //        DrawBoard(this, game);
-            //    }
-            //};
-
-            //this.score = new CCLabel("Score 100% out of 12 puzzles", "arial", 36f)
-            //    .PlaceAt(.2f, .1f, 101, this)
-            //    .WithTextCentered();
-
+            Color = CCColor3B.DarkGray;            
         }
 
         private void ClearBoard()
@@ -100,7 +68,6 @@ namespace chezzles.cocossharp
         {
             base.AddedToScene();
             AddBoard();
-            this.InitializeMenu();
         }
     }
 }
