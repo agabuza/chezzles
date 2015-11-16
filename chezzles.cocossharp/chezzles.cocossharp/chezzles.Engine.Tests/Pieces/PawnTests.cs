@@ -86,5 +86,26 @@ namespace chezzles.Engine.Tests.Pieces
 
             Assert.That(pawn.CanMoveTo(new Square(1, 4)), Is.False);
         }
+
+        [Test]
+        public void Whether_Pawn_JumpsInCorrectDirection_OnCanMoveTo()
+        {
+            var board = new Board();
+            board.IsBottomUpDirection = false;
+            var pawn = new Pawn(new Square(1, 7), board, PieceColor.White);
+
+            Assert.That(pawn.CanMoveTo(new Square(1, 5)), Is.True);
+        }
+
+        [Test]
+        public void Whether_Pawn_CantJumpInOppositeDirection_OnCamMoveTo()
+        {
+            var board = new Board();
+            board.IsBottomUpDirection = false;
+            var pawn = new Pawn(new Square(1, 7), board, PieceColor.Black);
+
+            Assert.That(pawn.CanMoveTo(new Square(1, 5)), Is.False);
+        }
+
     }
 }

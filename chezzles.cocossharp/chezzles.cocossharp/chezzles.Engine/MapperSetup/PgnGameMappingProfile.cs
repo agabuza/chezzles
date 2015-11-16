@@ -25,6 +25,9 @@ namespace chezzles.engine.MapperSetup
             this.CreateMap<Pgn.Move, Core.Game.Move>();
 
             this.CreateMap<Pgn.BoardSetup, Core.Board>()
+                // assuming that all PGN's presented in same way. 
+                // if it's white move - we have bottom up board direction.
+                .ForMember(d => d.IsBottomUpDirection, opt => opt.MapFrom(s => s.IsWhiteMove))
                 .AfterMap((s, board) =>
                 {
                     for (int i = 0; i <= 7; i++)

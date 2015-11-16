@@ -13,17 +13,30 @@ namespace chezzles.engine.Core
         private float size;
 
         public bool IsWhiteMove { get; internal set; }
+        public bool IsBottomUpDirection { get; internal set; }
 
         public Board()
         {
-            this.IsWhiteMove = true;
+            InitProperties();
             PopulateSquares(400);
         }
 
         public Board(float size)
         {
-            this.IsWhiteMove = true;
+            InitProperties();
             PopulateSquares(size);
+        }
+        public Board(Dictionary<Square, Piece> squares)
+        {
+            InitProperties();
+            this.squares = squares;
+            this.size = 400;
+        }
+
+        private void InitProperties()
+        {
+            this.IsBottomUpDirection = true;
+            this.IsWhiteMove = true;
         }
 
         private void PopulateSquares(float size)
@@ -40,13 +53,6 @@ namespace chezzles.engine.Core
         public float Size
         {
             get { return this.size; }
-        }
-
-        public Board(Dictionary<Square, Piece> squares)
-        {
-            this.IsWhiteMove = true;
-            this.squares = squares;
-            this.size = 400;
         }
 
         public Dictionary<Square, Piece> Squares

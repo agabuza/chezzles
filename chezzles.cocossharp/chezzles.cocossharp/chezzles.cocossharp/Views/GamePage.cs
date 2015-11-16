@@ -40,6 +40,7 @@ namespace chezzles.cocossharp.Views
                 Text = "Solved 50%, 6/12",
                 TextColor = Color.White,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
                 FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
                 FontFamily = "Droid Sans Mono"
             }, 0, 0);

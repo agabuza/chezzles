@@ -18,7 +18,6 @@ namespace chezzles.engine.Core.Game
             {
                 yield return Mapper.Map<Game>(game);
             }
-            //return Mapper.Map<IEnumerable<Game>>(db);
         }
 
         public async Task<IEnumerable<Game>> ParseAsync(string text)

@@ -123,5 +123,13 @@ namespace chezzles.Engine.Tests.BoardTests
             Assert.That(board.Pieces != null);
             Assert.That(board.Pieces.Count() == 2);
         }
+
+        [Test]
+        public void Whether_Board_SetsBottomTopDirection_On_Init()
+        {
+            var board = new Board();
+            Assert.That(board.IsBottomUpDirection, Is.True);
+        }
+
     }
 }

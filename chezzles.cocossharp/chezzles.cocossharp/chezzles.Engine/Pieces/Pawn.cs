@@ -30,12 +30,14 @@ namespace chezzles.engine.Pieces
         {
             get
             {
+                var secondRank = this.board.IsBottomUpDirection ? 2 : 7;
+                var sevensRank = this.board.IsBottomUpDirection ? 7 : 2;
                 switch (this.Color)
                 {
                     case PieceColor.White:
-                        return this.position.YPosition == 2 ? 2 : 1;
+                        return this.position.YPosition == secondRank ? 2 : 1;
                     case PieceColor.Black:
-                        return this.position.YPosition == 7 ? 2 : 1;
+                        return this.position.YPosition == sevensRank ? 2 : 1;
                     default:
                         return 1;
                 }
@@ -45,14 +47,16 @@ namespace chezzles.engine.Pieces
         protected override IEnumerable<Tuple<int, int>> GetOffsets()
         {
             var offsets = new List<Tuple<int, int>>();
+            var whiteVerticalOffset = this.board.IsBottomUpDirection ? 1 : -1;
+            var blackVerticalOffset = this.board.IsBottomUpDirection ? -1 : 1;
 
             switch (this.Color)
             {
                 case PieceColor.White:
-                    offsets.Add(new Tuple<int, int>(0, 1));
+                    offsets.Add(new Tuple<int, int>(0, whiteVerticalOffset));
                     break;
                 case PieceColor.Black:
-                    offsets.Add(new Tuple<int, int>(0, -1));
+                    offsets.Add(new Tuple<int, int>(0, blackVerticalOffset));
                     break;
                 default:
                     break;
