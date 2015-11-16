@@ -87,5 +87,35 @@ namespace chezzles.Engine.Tests.Pieces
 
             Assert.That(king.CanMoveTo(new Square(4, 3)), Is.False);
         }
+
+        [Test]
+        public void Whether_King_CantEscapeFromRookOnTheSameFile_OnCanMoveTo()
+        {
+            var board = new Board();
+            var king = new King(new Square(4, 4), board, PieceColor.White);
+            var bishop = new Rook(new Square(5, 4), board, PieceColor.Black);
+
+            Assert.That(king.CanMoveTo(new Square(3, 4)), Is.False);
+        }
+
+        [Test]
+        public void Whether_King_CantEscapeFromRookOnTheSameRank_On_CanMoveTo()
+        {
+            var board = new Board();
+            var king = new King(new Square(4, 4), board, PieceColor.White);
+            var bishop = new Rook(new Square(4, 7), board, PieceColor.Black);
+
+            Assert.That(king.CanMoveTo(new Square(4, 3)), Is.False);
+        }
+
+        [Test]
+        public void Whether_King_CantEscapeFromBishopOnTheSameDiagonal_OnCanMoveTo()
+        {
+            var board = new Board();
+            var king = new King(new Square(4, 4), board, PieceColor.White);
+            var bishop = new Bishop(new Square(5, 5), board, PieceColor.Black);
+
+            Assert.That(king.CanMoveTo(new Square(3, 3)), Is.False);
+        }
     }
 }

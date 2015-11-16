@@ -1,4 +1,5 @@
-﻿using System;
+﻿using chezzles.engine.Pieces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -72,7 +73,11 @@ namespace chezzles.engine.Core
                     var square = new Square(this.position.XPosition + offset.Item1 * i, this.position.YPosition + offset.Item2 * i);
 
                     yield return square;
-                    if (!this.IsEmptySquare(square)) break;
+                    if (!this.IsEmptySquare(square) &&
+                        !(this.board.Squares.ContainsKey(square) && this.board.Squares[square] is King))
+                    {
+                        break;
+                    }
                 }
             }
         }
