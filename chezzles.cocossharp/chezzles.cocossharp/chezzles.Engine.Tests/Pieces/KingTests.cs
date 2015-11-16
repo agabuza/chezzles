@@ -67,5 +67,25 @@ namespace chezzles.Engine.Tests.Pieces
             Assert.That(king.PossibleMoves().Count() == 3);
             Assert.That(king.CanMoveTo(new Square(-1, -1)), Is.False);
         }
+
+        [Test]
+        public void Whether_King_CantMoveToBeatenSquare_On_CanMoveTo()
+        {
+            var board = new Board();
+            var king = new King(new Square(4, 4), board, PieceColor.White);
+            var bishop = new Bishop(new Square(4, 6), board, PieceColor.Black);
+
+            Assert.That(king.CanMoveTo(new Square(5, 5)), Is.False);
+        }
+
+        [Test]
+        public void Whether_King_CantMoveToBeatenPawnSquare_On_CanMoveTo()
+        {
+            var board = new Board();
+            var king = new King(new Square(4, 4), board, PieceColor.White);
+            var bishop = new Pawn(new Square(5, 4), board, PieceColor.Black);
+
+            Assert.That(king.CanMoveTo(new Square(4, 3)), Is.False);
+        }
     }
 }

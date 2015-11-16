@@ -20,7 +20,7 @@ namespace chezzles.engine.Core
             this.color = color;
 
             this.board.Squares[position] = this;
-        }        
+        }
 
         public Piece()
         {
@@ -43,7 +43,7 @@ namespace chezzles.engine.Core
         {
             get { return board; }
             internal set { this.board = value; }
-        }        
+        }
 
         protected virtual int MaxRange
         {
@@ -63,24 +63,23 @@ namespace chezzles.engine.Core
             }
         }
 
-        public virtual IEnumerable<Square> PossibleMoves()
+        public virtual IEnumerable<Square> BeatenSquares()
         {
             foreach (var offset in GetOffsets())
             {
                 for (int i = 1; i <= this.MaxRange; i++)
                 {
                     var square = new Square(this.position.XPosition + offset.Item1 * i, this.position.YPosition + offset.Item2 * i);
-                    if (this.IsEmptySquare(square) || this.IsOpponentsPiece(square))
-                    {
-                        yield return square;
-                        if (this.IsOpponentsPiece(square)) break;
-                    }
-                    else
-                    {
-                        break;
-                    }
+
+                    yield return square;
+                    if (!this.IsEmptySquare(square)) break;
                 }
             }
+        }
+
+        public virtual IEnumerable<Square> PossibleMoves()
+        {
+            return BeatenSquares().Where(x => IsEmptySquare(x) || IsOpponentsPiece(x));
         }
 
         public bool MoveTo(Square square)

@@ -41,6 +41,15 @@ namespace chezzles.engine.Pieces
             return offsets;
         }
 
+        public override bool CanMoveTo(Square square)
+        {
+            var moves = base.PossibleMoves().ToList();
+            var beatenSquares = this.board.Pieces.Where(x => x.Color != this.Color)
+                                    .SelectMany(p => p.BeatenSquares()).ToList();
+
+            return moves.Except(beatenSquares).Any(x => x.Equals(square));
+        }
+
         protected override int MaxRange
         {
             get

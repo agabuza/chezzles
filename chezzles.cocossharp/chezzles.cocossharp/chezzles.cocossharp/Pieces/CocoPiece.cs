@@ -15,6 +15,7 @@ namespace chezzles.cocossharp.Pieces
         private CCDrawNode drawNode;
         private Square lastMovePosition;
         private CCDrawNode possibleMoves;
+        private List<Square> possibleSquares = new List<Square>();
 
         public float radius { get { return ContentSize.Width * 0.5f; } }
 
@@ -64,13 +65,14 @@ namespace chezzles.cocossharp.Pieces
 
             this.AnchorPoint = new CCPoint(0.2f, 0.2f);
             this.Scale = this.ScaleX * 2f;
+            this.possibleSquares = this.piece.PossibleMoves().ToList();
             this.DrawPossibleMoves();
             return true;
         }
 
         private void DrawPossibleMoves()
         {
-            foreach (var point in this.piece.PossibleMoves().Select(x => x.GetPoint(this.piece.Board.Size)))
+            foreach (var point in this.possibleSquares.Select(x => x.GetPoint(this.piece.Board.Size)))
             {
                 this.possibleMoves.DrawSolidCircle(point, 4, CCColor4B.LightGray);
             }
@@ -81,6 +83,7 @@ namespace chezzles.cocossharp.Pieces
             this.Position = this.initPosition;
             drawNode.Clear();
             possibleMoves.Clear();
+            possibleSquares.Clear();
         }
 
         private void TouchEnded(CCTouch touch, CCEvent e)
@@ -100,6 +103,8 @@ namespace chezzles.cocossharp.Pieces
             this.Scale = this.ScaleX * 0.5f;
             drawNode.Clear();
             possibleMoves.Clear();
+            possibleSquares.Clear();
+
         }
 
         private void Touch(CCTouch touch, CCEvent e)
@@ -110,7 +115,7 @@ namespace chezzles.cocossharp.Pieces
                 drawNode.Clear();
                 this.lastMovePosition = square;
 
-                if (this.piece.CanMoveTo(square))
+                if (this.possibleSquares.Any(x => x.Equals(square)))
                 {
                     var color = new CCColor4B(30, 144, 255, 0x66);
                     var point = square.GetPoint(this.piece.Board.Size);

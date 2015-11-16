@@ -65,10 +65,9 @@ namespace chezzles.engine.Pieces
             return offsets;
         }
 
-        public override IEnumerable<Square> PossibleMoves()
+        public override IEnumerable<Square> BeatenSquares()
         {
-            var moves = base.PossibleMoves().ToList();
-            moves.RemoveAll(x => !IsEmptySquare(x));
+            var moves = new List<Square>();
 
             var whiteVerticalOffset = this.board.IsBottomUpDirection ? 1 : -1;
             var blackVerticalOffset = this.board.IsBottomUpDirection ? -1 : 1;
@@ -88,22 +87,26 @@ namespace chezzles.engine.Pieces
             return moves;
         }
 
+        public override IEnumerable<Square> PossibleMoves()
+        {
+            // WARNING: CRAZY... It's pawn, baby...
+            var moves = base.BeatenSquares().ToList();
+            moves.RemoveAll(x => !IsEmptySquare(x));
+            moves.AddRange(this.BeatenSquares().Where(IsOpponentsPiece));
+
+            return moves;
+        }
+
         /// <summary>
         /// Method to add max two possible takes of pawn (left&right)
         /// </summary>
         private void AddTakes(List<Square> moves, int verticalOffset)
         {
             var right = new Square(this.position.XPosition + 1, this.position.YPosition + verticalOffset);
-            if (this.IsOpponentsPiece(right))
-            {
-                moves.Add(right);
-            }
+            moves.Add(right);
 
             var left = new Square(this.position.XPosition - 1, this.position.YPosition + verticalOffset);
-            if (this.IsOpponentsPiece(left))
-            {
-                moves.Add(left);
-            }
+            moves.Add(left);
         }
     }
 }
