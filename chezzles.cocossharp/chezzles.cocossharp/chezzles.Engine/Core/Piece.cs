@@ -70,7 +70,7 @@ namespace chezzles.engine.Core
                 for (int i = 1; i <= this.MaxRange; i++)
                 {
                     var square = new Square(this.position.XPosition + offset.Item1 * i, this.position.YPosition + offset.Item2 * i);
-                    if (this.IsEmptySquare(square))
+                    if (this.IsEmptySquare(square) || this.IsOpponentsPiece(square))
                     {
                         yield return square;
                         if (this.IsOpponentsPiece(square)) break;
@@ -106,8 +106,7 @@ namespace chezzles.engine.Core
         
         protected bool IsEmptySquare(Square sq)
         {
-            return this.board.Squares.ContainsKey(sq) &&
-                    (this.board.Squares[sq] == null || this.board.Squares[sq].Color != this.Color);
+            return this.board.Squares.ContainsKey(sq) && this.board.Squares[sq] == null;
         }
 
         protected bool IsOpponentsPiece(Square sq)

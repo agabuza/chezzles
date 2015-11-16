@@ -64,5 +64,46 @@ namespace chezzles.engine.Pieces
 
             return offsets;
         }
+
+        public override IEnumerable<Square> PossibleMoves()
+        {
+            var moves = base.PossibleMoves().ToList();
+            moves.RemoveAll(x => !IsEmptySquare(x));
+
+            var whiteVerticalOffset = this.board.IsBottomUpDirection ? 1 : -1;
+            var blackVerticalOffset = this.board.IsBottomUpDirection ? -1 : 1;
+
+            switch (this.Color)
+            {
+                case PieceColor.White:
+                    AddTakes(moves, whiteVerticalOffset);
+                    break;
+                case PieceColor.Black:
+                    AddTakes(moves, blackVerticalOffset);
+                    break;
+                default:
+                    break;
+            }
+
+            return moves;
+        }
+
+        /// <summary>
+        /// Method to add max two possible takes of pawn (left&right)
+        /// </summary>
+        private void AddTakes(List<Square> moves, int verticalOffset)
+        {
+            var right = new Square(this.position.XPosition + 1, this.position.YPosition + verticalOffset);
+            if (this.IsOpponentsPiece(right))
+            {
+                moves.Add(right);
+            }
+
+            var left = new Square(this.position.XPosition - 1, this.position.YPosition + verticalOffset);
+            if (this.IsOpponentsPiece(left))
+            {
+                moves.Add(left);
+            }
+        }
     }
 }
