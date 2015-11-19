@@ -25,6 +25,5 @@ namespace chezzles.cocossharp.Pieces
             var cocoPiece = new CocoPiece(piece, cache[spriteName]);
             return cocoPiece;
         }
-
     }
 }

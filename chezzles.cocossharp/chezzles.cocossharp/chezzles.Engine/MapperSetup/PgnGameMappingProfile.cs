@@ -46,7 +46,7 @@ namespace chezzles.engine.MapperSetup
 
             this.CreateMap<Pgn.Game, Core.Game.Game>()
                 .ForMember(d => d.Board, opt => opt.MapFrom(x => x.BoardSetup))
-                .ForMember(d => d.Moves, opt => opt.MapFrom(x => x.MoveText));
+                .ForMember(d => d.Moves, opt => opt.MapFrom(x => x.MoveText.GetMoves().ToList()));
 
             this.CreateMap<Pgn.Database, IEnumerable<Core.Game.Game>>()
                 .ConstructUsing(x => x.Games.Select(g => Mapper.Map<Game>(g)));

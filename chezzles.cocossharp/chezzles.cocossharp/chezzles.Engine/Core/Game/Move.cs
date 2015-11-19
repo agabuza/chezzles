@@ -10,8 +10,9 @@ namespace chezzles.engine.Core.Game
     {
         public Square OriginalSquare { get; set; }
         public Square TargetSquare { get; set; }
-        public bool IsCheck { get; set; }
-        public bool IsCheckMate { get; set; }
+        public bool? IsCheck { get; set; }
+        public bool? IsCheckMate { get; set; }
         public PieceType PromotedPiece { get; set; }
+        public PieceType TargetPiece { get; set; }
     }
 }

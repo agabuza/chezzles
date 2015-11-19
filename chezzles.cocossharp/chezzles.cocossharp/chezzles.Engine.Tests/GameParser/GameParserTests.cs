@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using chezzles.engine.Core.Game;
+using System.Linq;
 
 namespace chezzles.Engine.Tests
 {
@@ -56,6 +57,19 @@ namespace chezzles.Engine.Tests
             var parser = new GameParser();
             var result = parser.Parse(fenGame);
             Assert.That(result != null);
+        }
+
+        [Test]
+        public void Whether_GameParser_ParsesFENGameMoves_On_Parse()
+        {
+            var parser = new GameParser();
+            var result = parser.Parse(fenGame);
+
+            var game = result.FirstOrDefault();
+
+            Assert.That(game != null);
+            Assert.That(game.Moves != null);
+            Assert.That(game.Moves.Count == 5);
         }
     }
 }
