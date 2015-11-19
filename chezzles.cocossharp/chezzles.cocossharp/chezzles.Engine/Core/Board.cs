@@ -12,7 +12,7 @@ namespace chezzles.engine.Core
         private Dictionary<Square, Piece> squares;
         private float size;
 
-        public bool IsWhiteMove { get; internal set; }
+        public bool IsWhiteMove { get; set; }
         public bool IsBottomUpDirection { get; internal set; }
 
         public Board()

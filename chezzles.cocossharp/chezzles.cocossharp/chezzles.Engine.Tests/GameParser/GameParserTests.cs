@@ -7,7 +7,7 @@ namespace chezzles.Engine.Tests
     [TestFixture]
     public class GameParserTests
     {
-        private static string game = @"
+        private const string game = @"
 [Event ""Breslau""]
 [Site ""Breslau""]
 [Date ""1879.??.??""]
@@ -25,7 +25,7 @@ namespace chezzles.Engine.Tests
 23.Re1 Be2 24.Nf5  1-0
 ";
 
-        private static string fenGame = @"
+        private const string fenGame = @"
 [Event ""Rom""]
 [Site ""?""]
 [Date ""1987.??.??""]
@@ -42,6 +42,39 @@ namespace chezzles.Engine.Tests
 
 1... Rh3 2. Qd1 Qd2 3. Rf1 Qxd1+ 0-1
 ";
+
+        private const string fenBlackMove = @"
+[Event ""Lwow""]
+[Site ""?""]
+[Date ""1990.??.??""]
+[Round ""?""]
+[White ""Asmaiparaschwili""]
+[Black ""Schirow""]
+[Result ""0-1""]
+[Annotator ""T1A""]
+[SetUp ""1""]
+[FEN ""1rr3k1/4pp1p/2Np2p1/PP6/2Q5/2R3Pb/2p2P1P/2q2BK1 b - - 0 1""]
+[PlyCount ""3""]
+[EventDate ""1990.??.??""]
+[EventType ""team""]
+
+1... Rxc6 2. bxc6 Rb1 0-1";
+
+        public const string fenWhiteMove = @"[Event ""Ungarn""]
+[Site ""?""]
+[Date ""1975.??.??""]
+[Round ""?""]
+[White ""Barczay""]
+[Black ""Erdely""]
+[Result ""1-0""]
+[Annotator ""T1H""]
+[SetUp ""1""]
+[FEN ""2r4k/3r1p1p/1p2pP2/p2pPp1P/P2P1Q2/6R1/4B1PK/2q5 w - - 0 1""]
+[PlyCount ""1""]
+[EventDate ""1975.??.??""]
+[EventType ""team""]
+
+1. Rg8+ 1-0";
 
         [Test]
         public void Whether_GameParser_ParsesGame_On_Parse()
@@ -63,13 +96,26 @@ namespace chezzles.Engine.Tests
         public void Whether_GameParser_ParsesFENGameMoves_On_Parse()
         {
             var parser = new GameParser();
-            var result = parser.Parse(fenGame);
+            var result = parser.Parse(fenBlackMove);
 
             var game = result.FirstOrDefault();
 
             Assert.That(game != null);
             Assert.That(game.Moves != null);
-            Assert.That(game.Moves.Count == 5);
+            Assert.That(game.Moves.Count == 3);
+        }
+
+        [TestCase(fenWhiteMove, true)]
+        [TestCase(fenBlackMove, false)]
+        public void Whether_GameParser_ParsesIsWhiteMove_On_Parse(string fenGame, bool isWhiteMove)
+        {
+            var parser = new GameParser();
+            var result = parser.Parse(fenGame);
+
+            var game = result.FirstOrDefault();
+
+            Assert.That(game != null);
+            Assert.That(game.Board.IsWhiteMove == isWhiteMove);
         }
     }
 }

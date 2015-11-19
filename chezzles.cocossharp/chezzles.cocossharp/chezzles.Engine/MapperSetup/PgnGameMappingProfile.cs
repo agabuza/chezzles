@@ -40,6 +40,10 @@ namespace chezzles.engine.MapperSetup
                                 board.PutPiece(new Core.Square(i + 1, j + 1), piece);
                             }
                         }
+                    
+                    // This should be after we init all pieces 
+                    // as every PutPiece invokation changes IsWhiteMove.
+                    board.IsWhiteMove = s.IsWhiteMove;
                 });
 
             CreateMap<Pgn.MoveText.MoveTextEntryList, List<Move>>();
