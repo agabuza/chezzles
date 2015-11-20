@@ -1,4 +1,5 @@
 ﻿using chezzles.engine.Core;
+using chezzles.engine.Core.Game;
 using chezzles.engine.Pieces;
 using Moq;
 using NUnit.Framework;
@@ -131,5 +132,19 @@ namespace chezzles.Engine.Tests.BoardTests
             Assert.That(board.IsBottomUpDirection, Is.True);
         }
 
+        [Test]
+        public void Whether_Board_InvokesOnPieceMoved_On_PieceMoveTo()
+        {
+            var board = new Board();
+            var pieceMoved = false;
+            board.PieceMoved += (b, op, p) => pieceMoved = true;
+            var originalPosition = new Square(5, 4);
+            var newPosition = new Square(4, 3);
+
+            var bishop = new Bishop(originalPosition, board, PieceColor.White);
+            bishop.MoveTo(newPosition);
+
+            Assert.That(pieceMoved);
+        }
     }
 }

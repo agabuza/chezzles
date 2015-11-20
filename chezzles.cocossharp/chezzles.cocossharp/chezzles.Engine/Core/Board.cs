@@ -7,6 +7,8 @@ using PgnGame = ilf.pgn.Data.Game;
 
 namespace chezzles.engine.Core
 {
+    public delegate void PieceMovedEventHandler(Board board, Square originalPosition, Piece piece);
+
     public sealed class Board
     {
         private Dictionary<Square, Piece> squares;
@@ -14,6 +16,8 @@ namespace chezzles.engine.Core
 
         public bool IsWhiteMove { get; set; }
         public bool IsBottomUpDirection { get; internal set; }
+
+        public event PieceMovedEventHandler PieceMoved;
 
         public Board()
         {
@@ -86,6 +90,16 @@ namespace chezzles.engine.Core
 
             // Now it's opposite color to move
             this.IsWhiteMove = !this.IsWhiteMove;
+
+            this.FirePieceMoved(oldPosition, piece);
+        }
+
+        private void FirePieceMoved(Square oldPosition, Piece piece)
+        {
+            if (this.PieceMoved != null)
+            {
+                this.PieceMoved(this, oldPosition, piece);
+            }
         }
 
         public bool GameFinished()

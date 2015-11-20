@@ -102,7 +102,7 @@ namespace chezzles.Engine.Tests
 
             Assert.That(game != null);
             Assert.That(game.Moves != null);
-            Assert.That(game.Moves.Count == 3);
+            Assert.That(game.Moves.Count() == 3);
         }
 
         [TestCase(fenWhiteMove, true)]
