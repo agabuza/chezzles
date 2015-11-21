@@ -20,7 +20,7 @@ namespace chezzles.engine.MapperSetup
 
             this.CreateMap<Pgn.Square, Core.Square>()
                 .ForMember(d => d.XPosition, opt => opt.MapFrom(s => s.File))
-                .ForMember(d => d.YPosition, opt => opt.MapFrom(s => s.Rank - 1));
+                .ForMember(d => d.YPosition, opt => opt.MapFrom(s => s.Rank));
 
             this.CreateMap<Pgn.Move, Core.Game.Move>();
 
@@ -37,7 +37,7 @@ namespace chezzles.engine.MapperSetup
                             if (piece != null)
                             {
                                 piece.Board = board;
-                                board.PutPiece(new Core.Square(i + 1, j + 1), piece);
+                                board.PutPiece(new Core.Square(i + 1, 8 - j), piece);
                             }
                         }
                     
