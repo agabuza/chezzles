@@ -15,5 +15,25 @@ namespace chezzles.engine.Core
 
         public int XPosition { get; set; }
         public int YPosition { get; set; }
+
+        public static bool operator ==(Square a, Square b)
+        {
+            if (object.ReferenceEquals(a, b))
+            {
+                return true;
+            }
+
+            if (((object)a == null) || ((object)b == null))
+            {
+                return false;
+            }
+
+            return a.XPosition == b.XPosition && a.YPosition == b.YPosition;
+        }
+
+        public static bool operator !=(Square a, Square b)
+        {
+            return !(a == b);
+        }
     }
 }

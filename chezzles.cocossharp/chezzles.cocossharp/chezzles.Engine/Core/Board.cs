@@ -1,4 +1,5 @@
-﻿using chezzles.engine.Pieces.Builder;
+﻿using chezzles.engine.Core.Game;
+using chezzles.engine.Pieces.Builder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using PgnGame = ilf.pgn.Data.Game;
 
 namespace chezzles.engine.Core
 {
-    public delegate void PieceMovedEventHandler(Board board, Square originalPosition, Piece piece);
+    public delegate void PieceMovedEventHandler(Board board, Move move);
 
     public sealed class Board
     {
@@ -35,6 +36,16 @@ namespace chezzles.engine.Core
             InitProperties();
             this.squares = squares;
             this.size = 400;
+        }
+
+        internal void MakeMove(Move nextMove)
+        {
+            var pieceToMove = this.Pieces.FirstOrDefault(x =>
+                    x.Type == nextMove.TargetPiece &&
+                    x.Color == (this.IsWhiteMove ? PieceColor.White : PieceColor.Black) &&
+                    x.PossibleMoves().Contains(nextMove.TargetSquare));
+
+            this.PutPiece(nextMove.TargetSquare, pieceToMove, false);
         }
 
         private void InitProperties()
@@ -75,7 +86,7 @@ namespace chezzles.engine.Core
             }
         }
 
-        public void PutPiece(Square square, Piece piece)
+        public void PutPiece(Square square, Piece piece, bool notifyPieceMoved = true)
         {
             if (this.squares[square] != null)
             {
@@ -91,14 +102,24 @@ namespace chezzles.engine.Core
             // Now it's opposite color to move
             this.IsWhiteMove = !this.IsWhiteMove;
 
-            this.FirePieceMoved(oldPosition, piece);
+            if (notifyPieceMoved)
+            {
+                this.FirePieceMoved(oldPosition, piece);
+            }
         }
 
         private void FirePieceMoved(Square oldPosition, Piece piece)
         {
             if (this.PieceMoved != null)
             {
-                this.PieceMoved(this, oldPosition, piece);
+                var move = new Move()
+                {
+                    OriginalSquare = oldPosition,
+                    TargetSquare = piece.Position,
+                    TargetPiece = piece.Type
+                };
+
+                this.PieceMoved(this, move);
             }
         }
 

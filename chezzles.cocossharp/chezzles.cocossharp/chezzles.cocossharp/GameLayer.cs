@@ -49,7 +49,7 @@ namespace chezzles.cocossharp
             tileMap.Antialiased = false;
             this.AddChild(tileMap, -1);
 
-            var game = this.storage.Get(++this.index);
+            var game = this.storage.Get(this.index++);
             DrawBoard(this, game);
         }
 

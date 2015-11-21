@@ -14,5 +14,56 @@ namespace chezzles.engine.Core.Game
         public bool? IsCheckMate { get; set; }
         public PieceType PromotedPiece { get; set; }
         public PieceType TargetPiece { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            Move p = obj as Move;
+            if ((object)p == null)
+            {
+                return false;
+            }
+
+            return (TargetSquare == p.TargetSquare) && (TargetPiece == p.TargetPiece);
+        }
+
+        public bool Equals(Move p)
+        {
+            if ((object)p == null)
+            {
+                return false;
+            }
+
+            return (TargetSquare == p.TargetSquare) && (TargetPiece == p.TargetPiece);
+        }
+
+        public override int GetHashCode()
+        {
+            return TargetSquare.XPosition ^ TargetSquare.YPosition;
+        }
+
+        public static bool operator ==(Move a, Move b)
+        {
+            if (object.ReferenceEquals(a, b))
+            {
+                return true;
+            }
+
+            if (((object)a == null) || ((object)b == null))
+            {
+                return false;
+            }
+
+            return a.TargetSquare == b.TargetSquare && a.TargetPiece == b.TargetPiece;
+        }
+
+        public static bool operator !=(Move a, Move b)
+        {
+            return !(a == b);
+        }
     }
 }

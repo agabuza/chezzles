@@ -3,28 +3,81 @@ using System.Collections.Generic;
 
 namespace chezzles.engine.Core.Game
 {
+    public delegate void PuzzleEventHandler(Board board, Move move);
 
     public sealed class Game
     {
+        private Board board;
+        private IEnumerable<Move> moves;
+        private IEnumerator<Move> movesEnumerator;
 
-        public Board Board { get; set; }
+        public event PuzzleEventHandler PuzzleSolved;
+        public event PuzzleEventHandler PuzzleFailed;
 
-        public IEnumerable<Move> Moves { get; set; }
+        public Board Board
+        {
+            get
+            {
+                return this.board;
+            }
+
+            set
+            {
+                this.board = value;
+                this.board.PieceMoved += OnPieceMoved;
+            }
+        }
+
+        private void OnPieceMoved(Board board, Move move)
+        {
+            if (NextMove == move)
+            {
+                this.MakeNextMove();
+            }
+            else
+            {
+                if (this.PuzzleFailed != null)
+                {
+                    this.PuzzleFailed(this.Board, this.movesEnumerator.Current);
+                }
+            }
+        }
+
+        private void MakeNextMove()
+        {
+            if (this.movesEnumerator.MoveNext())
+            {
+                this.Board.MakeMove(this.NextMove);
+            }
+            else
+            {
+                if (this.PuzzleSolved != null)
+                {
+                    this.PuzzleSolved(this.Board, this.movesEnumerator.Current);
+                }
+            }
+        }
+
+        public IEnumerable<Move> Moves
+        {
+            get
+            {
+                return this.moves;
+            }
+
+            set
+            {
+                this.moves = value;
+                this.movesEnumerator = this.moves.GetEnumerator();
+                this.movesEnumerator.MoveNext();
+            }
+        }
 
         public Move NextMove
         {
             get
             {
-                throw new NotImplementedException();
-            }
-        }
-
-
-        public Move PrevMove
-        {
-            get
-            {
-                throw new NotImplementedException();
+                return this.movesEnumerator.Current;
             }
         }
     }

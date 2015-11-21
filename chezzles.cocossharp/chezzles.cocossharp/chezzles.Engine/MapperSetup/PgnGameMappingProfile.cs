@@ -20,7 +20,7 @@ namespace chezzles.engine.MapperSetup
 
             this.CreateMap<Pgn.Square, Core.Square>()
                 .ForMember(d => d.XPosition, opt => opt.MapFrom(s => s.File))
-                .ForMember(d => d.YPosition, opt => opt.MapFrom(s => s.Rank));
+                .ForMember(d => d.YPosition, opt => opt.MapFrom(s => s.Rank - 1));
 
             this.CreateMap<Pgn.Move, Core.Game.Move>();
 

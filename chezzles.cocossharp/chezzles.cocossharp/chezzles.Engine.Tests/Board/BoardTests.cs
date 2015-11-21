@@ -1,13 +1,8 @@
 ﻿using chezzles.engine.Core;
 using chezzles.engine.Core.Game;
 using chezzles.engine.Pieces;
-using Moq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace chezzles.Engine.Tests.BoardTests
 {
@@ -137,7 +132,7 @@ namespace chezzles.Engine.Tests.BoardTests
         {
             var board = new Board();
             var pieceMoved = false;
-            board.PieceMoved += (b, op, p) => pieceMoved = true;
+            board.PieceMoved += (b, m) => pieceMoved = true;
             var originalPosition = new Square(5, 4);
             var newPosition = new Square(4, 3);
 
@@ -146,5 +141,26 @@ namespace chezzles.Engine.Tests.BoardTests
 
             Assert.That(pieceMoved);
         }
+
+        [Test]
+        public void Whether_Board_DoesntInvokePieceMoved_On_MakeMove()
+        {
+            var board = new Board();
+            var pieceMoved = false;
+            board.PieceMoved += (b, m) => pieceMoved = true;
+            var originalPosition = new Square(5, 4);
+            var newPosition = new Square(4, 3);
+
+            var bishop = new Bishop(originalPosition, board, PieceColor.White);
+            board.MakeMove(new Move()
+            {
+                OriginalSquare = originalPosition,
+                TargetSquare = newPosition,
+                TargetPiece = bishop.Type
+            });
+
+            Assert.That(pieceMoved, Is.False);
+        }
+
     }
 }
