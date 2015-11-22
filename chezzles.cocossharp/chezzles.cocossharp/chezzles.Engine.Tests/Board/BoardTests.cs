@@ -61,6 +61,21 @@ namespace chezzles.Engine.Tests.BoardTests
         }
 
         [Test]
+        public void Whether_Piece_PositionUpdatedRaised_On_PieceMoved()
+        {
+            var board = new Board();
+            var newPos = new Square(1, 6);
+            var moved = false;
+            var rook = new Rook(new Square(1, 1), board, PieceColor.White);
+            rook.PositionUpdated += (s, p) => moved = true;
+
+            rook.MoveTo(newPos);
+
+            Assert.That(moved, Is.True);
+        }
+
+
+        [Test]
         public void Whether_Board_UpdatesIsWhiteMove_On_MoveTo()
         {
             var board = new Board();

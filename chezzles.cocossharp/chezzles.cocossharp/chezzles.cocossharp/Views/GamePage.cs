@@ -4,13 +4,22 @@ using CocosSharp;
 using Xamarin.Forms;
 using System.Collections.Generic;
 using System.Collections;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
+using chezzles.cocossharp.Messages;
+using chezzles.engine.Core.Game.Messages;
 
 namespace chezzles.cocossharp.Views
 {
     public class GamePage : ContentPage
     {
+        private int solvedCount;
+        private int failedCount;
+
         CocosSharpView gameView;
-        
+        private Label label;
+        private IMessenger messenger = Messenger.Default;
+
         public GamePage()
         {
             this.gameView = new CocosSharpView()
@@ -35,9 +44,10 @@ namespace chezzles.cocossharp.Views
                 }
             };
 
-            grid.Children.Add(new Label
+            grid.Children.Add(
+                this.label = new Label
             {
-                Text = "Solved 50%, 6/12",
+                Text = $"Solved: {this.solvedCount} Failed: {this.failedCount}",
                 TextColor = Color.White,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
                 HorizontalOptions = LayoutOptions.CenterAndExpand,
@@ -58,19 +68,38 @@ namespace chezzles.cocossharp.Views
                     {
                         Text = "Skip",
                         HorizontalOptions = LayoutOptions.FillAndExpand,
-                        VerticalOptions = LayoutOptions.FillAndExpand
+                        VerticalOptions = LayoutOptions.FillAndExpand,
+                        Command = new RelayCommand(() => this.messenger.Send<SkipPuzzleMessage>(new SkipPuzzleMessage()) )
                     },
                     new Button
                     {
                         Text = "Next",
                         HorizontalOptions = LayoutOptions.FillAndExpand,
-                        VerticalOptions = LayoutOptions.FillAndExpand
+                        VerticalOptions = LayoutOptions.FillAndExpand,
+                        Command = new RelayCommand(() => this.messenger.Send<NextPuzzleMessage>(new NextPuzzleMessage()) )
                     }
                 }
             };
 
             grid.Children.Add(stack, 0, 2);
             Content = grid;
+
+            this.RegisterMessages();
+        }
+
+        private void RegisterMessages()
+        {
+            this.messenger.Register<PuzzleFailedMessage>(this, (msg) =>
+            {
+                this.failedCount++;
+                this.label.Text = $"Solved: {this.solvedCount} Failed: {this.failedCount}";
+            });
+
+            this.messenger.Register<PuzzleSolvedMessage>(this, (msg) =>
+            {
+                this.solvedCount++;
+                this.label.Text = $"Solved: {this.solvedCount} Failed: {this.failedCount}";
+            });
         }
 
         private void LoadGame(object sender, EventArgs e)

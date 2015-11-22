@@ -29,6 +29,10 @@ namespace chezzles.cocossharp.Pieces
         {
             this.piece = piece;
             this.piece.PieceTaken += OnPieceTaken;
+            this.piece.PositionUpdated += (s, p) =>
+            {
+                this.Position = p.GetPoint(this.piece.Board.Size);
+            };
 
             AnchorPoint = CCPoint.AnchorMiddle;
             Position = this.GetPosition();
@@ -74,7 +78,7 @@ namespace chezzles.cocossharp.Pieces
         {
             foreach (var point in this.possibleSquares.Select(x => x.GetPoint(this.piece.Board.Size)))
             {
-                this.possibleMoves.DrawSolidCircle(point, 4, CCColor4B.LightGray);
+                this.possibleMoves.DrawSolidCircle(point, 4, CCColor4B.Blue);
             }
         }
 

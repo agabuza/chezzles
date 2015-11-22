@@ -7,12 +7,16 @@ using System.Text;
 namespace chezzles.engine.Core
 {
     public delegate void PieceTakenEventHandler (object sender);
+    public delegate void PositionUpatedEventHandler(object sender, Square position);
 
     public abstract class Piece
     {
         protected Square position;
         protected Board board;
         protected PieceColor color;
+
+        public event PieceTakenEventHandler PieceTaken;
+        public event PositionUpatedEventHandler PositionUpdated;
 
         public Piece(Square position, Board board, PieceColor color)
         {
@@ -37,7 +41,14 @@ namespace chezzles.engine.Core
         public Square Position
         {
             get { return this.position; }
-            internal set { this.position = value; }
+            internal set
+            {
+                this.position = value;
+                if (this.PositionUpdated != null)
+                {
+                    this.PositionUpdated(this, this.position);
+                }
+            }
         }
 
         public Board Board
@@ -50,8 +61,6 @@ namespace chezzles.engine.Core
         {
             get { return 8; }
         }
-
-        public event PieceTakenEventHandler PieceTaken;
 
         protected abstract IEnumerable<Tuple<int, int>> GetOffsets();
 

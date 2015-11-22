@@ -38,6 +38,12 @@ namespace chezzles.engine.Core
             this.size = 400;
         }
 
+        internal void MakeMove(Square originalSquare, Square targetSquare, bool notify)
+        {
+            var pieceToMove = this.squares[originalSquare];
+            this.PutPiece(targetSquare, pieceToMove, notify);
+        }
+
         internal void MakeMove(Move nextMove)
         {
             var pieceToMove = this.Pieces.FirstOrDefault(x =>
@@ -46,6 +52,11 @@ namespace chezzles.engine.Core
                     x.PossibleMoves().Contains(nextMove.TargetSquare));
 
             this.PutPiece(nextMove.TargetSquare, pieceToMove, false);
+        }
+
+        internal void MakeMove(Square targetSquare, Piece pieceToMove)
+        {
+            this.PutPiece(targetSquare, pieceToMove, false);
         }
 
         private void InitProperties()

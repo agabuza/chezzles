@@ -5,6 +5,8 @@ using chezzles.engine.Data;
 using System.Linq;
 using chezzles.cocossharp.Extensions;
 using chezzles.engine.Core.Game;
+using GalaSoft.MvvmLight.Messaging;
+using chezzles.cocossharp.Messages;
 
 namespace chezzles.cocossharp
 {
@@ -13,6 +15,7 @@ namespace chezzles.cocossharp
         private CocoPieceBuilder pieceBuilder;
         private CCTileMap tileMap;
         private float scaleFactor = 4;
+        private IMessenger messenger = Messenger.Default;
 
         // change hardcoded values to get correct board place
         public static CCPoint Origin = new CCPoint(0, 0);
@@ -24,13 +27,27 @@ namespace chezzles.cocossharp
         {
             this.pieceBuilder = new CocoPieceBuilder();
             this.storage = new GamesStorage();
-            Color = CCColor3B.DarkGray;            
+            Color = CCColor3B.DarkGray;
+
+            this.messenger.Register<NextPuzzleMessage>(this, (msg) =>
+            {
+                var game = this.storage.Get(this.index++);
+                ClearBoard();
+                DrawBoard(this, game);
+            });
+
+            this.messenger.Register<SkipPuzzleMessage>(this, (msg) =>
+            {
+                var game = this.storage.Get(this.index++);
+                ClearBoard();
+                DrawBoard(this, game);
+            });
         }
 
         private void ClearBoard()
         {
             var pieces = this.Children.OfType<CocoPiece>().ToList();
-            foreach(var piece in pieces)
+            foreach (var piece in pieces)
             {
                 this.RemoveChild(piece);
             }
@@ -48,9 +65,6 @@ namespace chezzles.cocossharp
 
             tileMap.Antialiased = false;
             this.AddChild(tileMap, -1);
-
-            var game = this.storage.Get(this.index++);
-            DrawBoard(this, game);
         }
 
         private void DrawBoard(CCNode gameLayer, Game game)

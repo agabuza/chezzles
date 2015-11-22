@@ -1,4 +1,6 @@
-﻿using System;
+﻿using chezzles.engine.Core.Game.Messages;
+using GalaSoft.MvvmLight.Messaging;
+using System;
 using System.Collections.Generic;
 
 namespace chezzles.engine.Core.Game
@@ -10,6 +12,7 @@ namespace chezzles.engine.Core.Game
         private Board board;
         private IEnumerable<Move> moves;
         private IEnumerator<Move> movesEnumerator;
+        private IMessenger messenger = Messenger.Default;
 
         public event PuzzleEventHandler PuzzleSolved;
         public event PuzzleEventHandler PuzzleFailed;
@@ -36,10 +39,15 @@ namespace chezzles.engine.Core.Game
             }
             else
             {
+                // revert last move
+                this.Board.MakeMove(move.TargetSquare, move.OriginalSquare, false);
+
                 if (this.PuzzleFailed != null)
                 {
                     this.PuzzleFailed(this.Board, this.movesEnumerator.Current);
                 }
+
+                messenger.Send<PuzzleFailedMessage>(new PuzzleFailedMessage());
             }
         }
 
@@ -55,6 +63,8 @@ namespace chezzles.engine.Core.Game
                 {
                     this.PuzzleSolved(this.Board, this.movesEnumerator.Current);
                 }
+
+                messenger.Send<PuzzleSolvedMessage>(new PuzzleSolvedMessage());
             }
         }
 
