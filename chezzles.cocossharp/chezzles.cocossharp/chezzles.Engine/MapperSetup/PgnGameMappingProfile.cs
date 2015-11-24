@@ -39,23 +39,78 @@ namespace chezzles.engine.MapperSetup
                                 piece.Board = board;
                                 board.PutPiece(new Core.Square(i + 1, 8 - j), piece);
                             }
-                        }
+                        }                    
                     
                     // This should be after we init all pieces 
                     // as every PutPiece invokation changes IsWhiteMove.
                     board.IsWhiteMove = s.IsWhiteMove;
                 });
 
-            CreateMap<Pgn.MoveText.MoveTextEntryList, List<Move>>();
+            CreateMap<Pgn.MoveText.MoveTextEntryList, List<MoveEntry>>();
+            CreateMap<Pgn.MoveTextEntry, MoveEntry>()
+                .ConvertUsing(new MoveTextEntryToMoveEntryConverter());
 
             this.CreateMap<Pgn.Game, Core.Game.Game>()
                 .ForMember(d => d.Board, opt => opt.MapFrom(x => x.BoardSetup))
-                .ForMember(d => d.Moves, opt => opt.MapFrom(x => x.MoveText.GetMoves().ToList()));
+                .ForMember(d => d.MoveEntries, opt => opt.MapFrom(x => x.MoveText))
+                .AfterMap((s, d) =>
+                {
+                    var moves = new List<MoveEntry>();
+                    foreach (var move in s.MoveText)
+                    {
+                        moves.Add(Mapper.Map<MoveEntry>(move));
+                    }
+                });
 
             this.CreateMap<Pgn.Database, IEnumerable<Core.Game.Game>>()
                 .ConstructUsing(x => x.Games.Select(g => Mapper.Map<Game>(g)));
 
             base.Configure();
-        }   
+        }
+
+        public class MoveTextEntryToMoveEntryConverter : ITypeConverter<Pgn.MoveTextEntry, MoveEntry>
+        {
+            public MoveEntry Convert(ResolutionContext context)
+            {
+                var moveTextEntry = context.SourceValue as Pgn.MoveTextEntry;
+
+                switch (moveTextEntry.Type)
+                {
+                    case Pgn.MoveTextEntryType.MovePair:
+                        var movePair = moveTextEntry as Pgn.MovePairEntry;
+                        return new MoveEntry()
+                        {
+                            WhiteMove = Mapper.Map<Move>(movePair.White),
+                            BlackMove = Mapper.Map<Move>(movePair.Black),
+                            Number = movePair.MoveNumber.Value
+                        };
+                    case Pgn.MoveTextEntryType.SingleMove:
+                        var singleMove = moveTextEntry as Pgn.HalfMoveEntry;
+                        return new MoveEntry()
+                        {
+                            WhiteMove = singleMove.IsContinued ? null : Mapper.Map<Move>(singleMove.Move),
+                            BlackMove = singleMove.IsContinued ? Mapper.Map<Move>(singleMove.Move) : null,
+                            Number = singleMove.MoveNumber.Value
+                        };
+                    case Pgn.MoveTextEntryType.GameEnd:
+                        var gameEnd = moveTextEntry as Pgn.GameEndEntry;
+                        return new MoveEntry()
+                        {
+                            IsGameEnd = true,
+                            Result = Mapper.Map<GameResult>(gameEnd.Result)
+                        };
+                    case Pgn.MoveTextEntryType.Comment:
+                        var comment = moveTextEntry as Pgn.CommentEntry;
+                        return new MoveEntry()
+                        {
+                            Comment = comment.Comment
+                        };
+                    case Pgn.MoveTextEntryType.NumericAnnotationGlyph:
+                    case Pgn.MoveTextEntryType.RecursiveAnnotationVariation:
+                    default:
+                        return null;
+                }
+            }
+        }
     }
 }

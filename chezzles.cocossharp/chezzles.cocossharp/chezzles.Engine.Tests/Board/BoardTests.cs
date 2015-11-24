@@ -169,6 +169,7 @@ namespace chezzles.Engine.Tests.BoardTests
             var bishop = new Bishop(originalPosition, board, PieceColor.White);
             board.MakeMove(new Move()
             {
+                Color = PieceColor.White,
                 OriginalSquare = originalPosition,
                 TargetSquare = newPosition,
                 TargetPiece = bishop.Type

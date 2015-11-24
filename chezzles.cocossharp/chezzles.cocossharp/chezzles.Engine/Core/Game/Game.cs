@@ -10,9 +10,10 @@ namespace chezzles.engine.Core.Game
     public sealed class Game
     {
         private Board board;
-        private IEnumerable<Move> moves;
-        private IEnumerator<Move> movesEnumerator;
+        private IEnumerable<MoveEntry> moves;
+        private IEnumerator<MoveEntry> movesEnumerator;
         private IMessenger messenger = Messenger.Default;
+        private bool completed;
 
         public event PuzzleEventHandler PuzzleSolved;
         public event PuzzleEventHandler PuzzleFailed;
@@ -33,9 +34,14 @@ namespace chezzles.engine.Core.Game
 
         private void OnPieceMoved(Board board, Move move)
         {
-            if (NextMove == move)
+            var correctMove = move.Color == PieceColor.White ? NextMoveEntry.WhiteMove : NextMoveEntry.BlackMove;
+            if (correctMove == move)
             {
                 this.MakeNextMove();
+                if (move.Color == PieceColor.Black)
+                {
+                    this.movesEnumerator.MoveNext();
+                }
             }
             else
             {
@@ -44,7 +50,7 @@ namespace chezzles.engine.Core.Game
 
                 if (this.PuzzleFailed != null)
                 {
-                    this.PuzzleFailed(this.Board, this.movesEnumerator.Current);
+                    this.PuzzleFailed(this.Board, this.movesEnumerator.Current.WhiteMove);
                 }
 
                 messenger.Send<PuzzleFailedMessage>(new PuzzleFailedMessage());
@@ -53,22 +59,24 @@ namespace chezzles.engine.Core.Game
 
         private void MakeNextMove()
         {
-            if (this.movesEnumerator.MoveNext())
+            if (this.movesEnumerator.MoveNext() && !this.movesEnumerator.Current.IsGameEnd)
             {
-                this.Board.MakeMove(this.NextMove);
+                var nextMove = this.Board.IsWhiteMove ? this.NextMoveEntry.WhiteMove : this.NextMoveEntry.BlackMove;
+                this.Board.MakeMove(nextMove);
             }
             else
             {
                 if (this.PuzzleSolved != null)
                 {
-                    this.PuzzleSolved(this.Board, this.movesEnumerator.Current);
+                    this.PuzzleSolved(this.Board, this.movesEnumerator.Current.WhiteMove);
                 }
 
+                this.completed = true;
                 messenger.Send<PuzzleSolvedMessage>(new PuzzleSolvedMessage());
             }
         }
 
-        public IEnumerable<Move> Moves
+        public IEnumerable<MoveEntry> MoveEntries
         {
             get
             {
@@ -83,7 +91,7 @@ namespace chezzles.engine.Core.Game
             }
         }
 
-        public Move NextMove
+        public MoveEntry NextMoveEntry
         {
             get
             {

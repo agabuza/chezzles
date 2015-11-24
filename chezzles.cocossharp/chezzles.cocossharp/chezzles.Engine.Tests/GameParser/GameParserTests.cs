@@ -101,8 +101,8 @@ namespace chezzles.Engine.Tests
             var game = result.FirstOrDefault();
 
             Assert.That(game != null);
-            Assert.That(game.Moves != null);
-            Assert.That(game.Moves.Count() == 3);
+            Assert.That(game.MoveEntries != null);
+            Assert.That(game.MoveEntries.Count() == 3);
         }
 
         [TestCase(fenWhiteMove, true)]

@@ -14,6 +14,7 @@ namespace chezzles.engine.Core.Game
         public bool? IsCheckMate { get; set; }
         public PieceType PromotedPiece { get; set; }
         public PieceType TargetPiece { get; set; }
+        public PieceColor Color { get; internal set; }
 
         public override bool Equals(object obj)
         {

@@ -125,6 +125,7 @@ namespace chezzles.engine.Core
             {
                 var move = new Move()
                 {
+                    Color = piece.Color,
                     OriginalSquare = oldPosition,
                     TargetSquare = piece.Position,
                     TargetPiece = piece.Type
