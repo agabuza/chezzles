@@ -20,14 +20,11 @@ namespace chezzles.Engine.Tests.Pieces
             Assert.That(possibleMoves.Count() == 1);
         }
 
-        [TestCase(PieceColor.White, 2, true)]
-        [TestCase(PieceColor.Black, 7, true)]
-        [TestCase(PieceColor.White, 7, false)]
-        [TestCase(PieceColor.Black, 2, false)]
-        public void Whether_Pawn_CanJump2SquaresFromInitialPosition_On_PossibleMoves(PieceColor color, int YPosition, bool boardDirection)
+        [TestCase(PieceColor.White, 2)]
+        [TestCase(PieceColor.Black, 7)]
+        public void Whether_Pawn_CanJump2SquaresFromInitialPosition_On_PossibleMoves(PieceColor color, int YPosition)
         {
             var board = new Board();
-            board.IsBottomUpDirection = boardDirection;
             var pawn = new Pawn(new Square(4, YPosition), board, color);
 
             var possibleMoves = pawn.PossibleMoves();
@@ -94,8 +91,7 @@ namespace chezzles.Engine.Tests.Pieces
         public void Whether_Pawn_JumpsInCorrectDirection_OnCanMoveTo()
         {
             var board = new Board();
-            board.IsBottomUpDirection = false;
-            var pawn = new Pawn(new Square(1, 7), board, PieceColor.White);
+            var pawn = new Pawn(new Square(1, 7), board, PieceColor.Black);
 
             Assert.That(pawn.CanMoveTo(new Square(1, 5)), Is.True);
         }
