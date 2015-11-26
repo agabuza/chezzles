@@ -3,14 +3,14 @@
 
 
 language: csharp
-solution: chezzles.cocossharp/chezzles.cocossharp.sln
+solution: chezzles.core/chezzles.core.sln
 
 install:
-  - nuget restore chezzles.cocossharp/chezzles.cocossharp.sln
+  - nuget restore chezzles.core/chezzles.core.sln
   - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 script:
-  - xbuild /p:Configuration=Release ./chezzles.cocossharp/chezzles.cocossharp.sln /p:TargetFrameworkVersion="v4.5"
-  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./chezzles.cocossharp/chezzles.cocossharp/chezzles.Engine.Tests/bin/Release/chezzles.Engine.Tests.dll
+  - xbuild /p:Configuration=Release ./chezzles.core/chezzles.core.sln /p:TargetFrameworkVersion="v4.5"
+  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./chezzles.core/chezzles.Engine.Tests/bin/Release/chezzles.Engine.Tests.dll
 
 # Only watch the master branch.
 branches:

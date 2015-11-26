@@ -3,7 +3,6 @@ using System;
 using CocosSharp;
 using Xamarin.Forms;
 using System.Collections.Generic;
-using System.Collections;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using chezzles.cocossharp.Messages;

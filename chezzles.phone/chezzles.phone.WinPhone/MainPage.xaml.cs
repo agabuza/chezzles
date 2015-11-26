@@ -18,7 +18,7 @@ namespace chezzles.phone.WinPhone
             SupportedOrientations = SupportedPageOrientation.PortraitOrLandscape;
 
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new chezzles.phone.App());
+            //LoadApplication(new App());
         }
     }
 }
