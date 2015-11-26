@@ -3,10 +3,10 @@
 
 
 language: csharp
-solution: chezzles.cocosharp/chezzles.cocossharp.sln
+solution: chezzles.cocossharp/chezzles.cocossharp.sln
 
 install:
-  - nuget restore chezzles.cocosharp/chezzles.cocossharp.sln
+  - nuget restore chezzles.cocossharp/chezzles.cocossharp.sln
   - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Release ./chezzles.cocosharp/chezzles.cocossharp.sln
