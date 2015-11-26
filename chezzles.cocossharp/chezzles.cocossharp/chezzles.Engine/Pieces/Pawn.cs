@@ -47,8 +47,8 @@ namespace chezzles.engine.Pieces
         protected override IEnumerable<Tuple<int, int>> GetOffsets()
         {
             var offsets = new List<Tuple<int, int>>();
-            var whiteVerticalOffset = this.board.IsBottomUpDirection ? 1 : -1;
-            var blackVerticalOffset = this.board.IsBottomUpDirection ? -1 : 1;
+            var whiteVerticalOffset = 1;
+            var blackVerticalOffset = -1;
 
             switch (this.Color)
             {
@@ -69,8 +69,8 @@ namespace chezzles.engine.Pieces
         {
             var moves = new List<Square>();
 
-            var whiteVerticalOffset = this.board.IsBottomUpDirection ? 1 : -1;
-            var blackVerticalOffset = this.board.IsBottomUpDirection ? -1 : 1;
+            var whiteVerticalOffset = 1;
+            var blackVerticalOffset = -1;
 
             switch (this.Color)
             {
