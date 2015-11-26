@@ -2,11 +2,11 @@
 {
     public enum PieceType
     {
-        Bishop = 66,
-        King = 75,
-        Knight = 78,
+        Bishop = 0x42,
+        King = 0x4b,
+        Knight = 0x4e,
         Pawn = 80,
-        Queen = 81,
-        Rook = 82
+        Queen = 0x51,
+        Rook = 0x52
     }
 }

@@ -12,8 +12,9 @@ namespace chezzles.engine.Core.Game
         public Square TargetSquare { get; set; }
         public bool? IsCheck { get; set; }
         public bool? IsCheckMate { get; set; }
-        public PieceType PromotedPiece { get; set; }
-        public PieceType TargetPiece { get; set; }
+        public PieceType? PromotedPiece { get; set; }
+        public PieceType? TargetPiece { get; set; }
+        public PieceType Piece { get; set; }
         public PieceColor Color { get; internal set; }
 
         public override bool Equals(object obj)
@@ -29,7 +30,7 @@ namespace chezzles.engine.Core.Game
                 return false;
             }
 
-            return (TargetSquare == p.TargetSquare) && (TargetPiece == p.TargetPiece);
+            return (TargetSquare == p.TargetSquare) && (Piece == p.Piece);
         }
 
         public bool Equals(Move p)
@@ -39,7 +40,7 @@ namespace chezzles.engine.Core.Game
                 return false;
             }
 
-            return (TargetSquare == p.TargetSquare) && (TargetPiece == p.TargetPiece);
+            return (TargetSquare == p.TargetSquare) && (Piece == p.Piece);
         }
 
         public override int GetHashCode()
@@ -59,7 +60,7 @@ namespace chezzles.engine.Core.Game
                 return false;
             }
 
-            return a.TargetSquare == b.TargetSquare && a.TargetPiece == b.TargetPiece;
+            return a.TargetSquare == b.TargetSquare && a.Piece == b.Piece;
         }
 
         public static bool operator !=(Move a, Move b)

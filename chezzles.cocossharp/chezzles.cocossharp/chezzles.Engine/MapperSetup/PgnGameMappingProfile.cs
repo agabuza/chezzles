@@ -52,14 +52,21 @@ namespace chezzles.engine.MapperSetup
 
             this.CreateMap<Pgn.Game, Core.Game.Game>()
                 .ForMember(d => d.Board, opt => opt.MapFrom(x => x.BoardSetup))
-                .ForMember(d => d.MoveEntries, opt => opt.MapFrom(x => x.MoveText))
                 .AfterMap((s, d) =>
                 {
                     var moves = new List<MoveEntry>();
                     foreach (var move in s.MoveText)
                     {
-                        moves.Add(Mapper.Map<MoveEntry>(move));
+                        var moveEntry = Mapper.Map<MoveEntry>(move);
+
+                        // skip unsuported annotations
+                        if (moveEntry != null)
+                        {
+                            moves.Add(moveEntry);
+                        }
                     }
+
+                    d.MoveEntries = moves;
                 });
 
             this.CreateMap<Pgn.Database, IEnumerable<Core.Game.Game>>()
@@ -105,7 +112,7 @@ namespace chezzles.engine.MapperSetup
                         {
                             Comment = comment.Comment
                         };
-                    case Pgn.MoveTextEntryType.NumericAnnotationGlyph:
+                    case Pgn.MoveTextEntryType.NumericAnnotationGlyph:                        
                     case Pgn.MoveTextEntryType.RecursiveAnnotationVariation:
                     default:
                         return null;

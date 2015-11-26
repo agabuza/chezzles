@@ -34,14 +34,16 @@ namespace chezzles.engine.Core.Game
 
         private void OnPieceMoved(Board board, Move move)
         {
-            var correctMove = move.Color == PieceColor.White ? NextMoveEntry.WhiteMove : NextMoveEntry.BlackMove;
+            var correctMove = move.Color == PieceColor.White ? NextMoveEntry?.WhiteMove : NextMoveEntry?.BlackMove;
             if (correctMove == move)
             {
-                this.MakeNextMove();
+                // we just made blacks move. Time to grab next pair;
                 if (move.Color == PieceColor.Black)
                 {
                     this.movesEnumerator.MoveNext();
                 }
+
+                this.MakeNextMove(move.Color);
             }
             else
             {
@@ -57,12 +59,18 @@ namespace chezzles.engine.Core.Game
             }
         }
 
-        private void MakeNextMove()
+        private void MakeNextMove(PieceColor prevColor)
         {
-            if (this.movesEnumerator.MoveNext() && !this.movesEnumerator.Current.IsGameEnd)
+            var nextMove = prevColor == PieceColor.White ? this.NextMoveEntry.BlackMove : this.NextMoveEntry.WhiteMove;
+            if (!this.movesEnumerator.Current.IsGameEnd && nextMove != null)
             {
-                var nextMove = this.Board.IsWhiteMove ? this.NextMoveEntry.WhiteMove : this.NextMoveEntry.BlackMove;
                 this.Board.MakeMove(nextMove);
+
+                // black just moved
+                if (prevColor == PieceColor.White)
+                {
+                    this.movesEnumerator.MoveNext();
+                }
             }
             else
             {

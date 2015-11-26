@@ -172,7 +172,7 @@ namespace chezzles.Engine.Tests.BoardTests
                 Color = PieceColor.White,
                 OriginalSquare = originalPosition,
                 TargetSquare = newPosition,
-                TargetPiece = bishop.Type
+                Piece = bishop.Type
             });
 
             Assert.That(pieceMoved, Is.False);

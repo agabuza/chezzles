@@ -47,7 +47,7 @@ namespace chezzles.engine.Core
         internal void MakeMove(Move nextMove)
         {
             var pieceToMove = this.Pieces.FirstOrDefault(x =>
-                    x.Type == nextMove.TargetPiece &&
+                    x.Type == nextMove.Piece &&
                     x.Color == (this.IsWhiteMove ? PieceColor.White : PieceColor.Black) &&
                     x.PossibleMoves().Contains(nextMove.TargetSquare));
 
@@ -128,7 +128,7 @@ namespace chezzles.engine.Core
                     Color = piece.Color,
                     OriginalSquare = oldPosition,
                     TargetSquare = piece.Position,
-                    TargetPiece = piece.Type
+                    Piece = piece.Type
                 };
 
                 this.PieceMoved(this, move);
