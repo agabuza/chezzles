@@ -4,9 +4,6 @@
 
 language: csharp
 solution: ./chezzles.cocosharp/chezzles.cocossharp.sln
-mono:
-  - latest
-  - 3.12.0
 
 install:
   - nuget restore solution-name.sln
