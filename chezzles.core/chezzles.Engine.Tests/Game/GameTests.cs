@@ -1,5 +1,7 @@
 ﻿using chezzles.engine.Core;
 using chezzles.engine.Core.Game;
+using chezzles.engine.Core.Game.Messages;
+using GalaSoft.MvvmLight.Messaging;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -82,6 +84,7 @@ namespace chezzles.Engine.Tests.GameTests
             var result = parser.Parse(fenWhiteMove);
             var game = result.FirstOrDefault();
             game.PuzzleSolved += (b, m) => solved = true;
+
             var targetSquare = new Square(7, 8);
 
             var rook = game.Board.Pieces.FirstOrDefault(x => x.Type == PieceType.Rook
@@ -92,5 +95,25 @@ namespace chezzles.Engine.Tests.GameTests
 
             Assert.That(solved, Is.True);
         }
+
+        [Test]
+        public void Whether_Game_SendsPuzzleSolvedMessage_On_PuzzleSolved()
+        {
+            var solved = false;
+            var parser = new GameParser();
+            var result = parser.Parse(fenWhiteMove);
+            var game = result.FirstOrDefault();
+            var targetSquare = new Square(7, 8);
+            Messenger.Default.Register<PuzzleSolvedMessage>(this, (msg) => solved = true);
+
+            var rook = game.Board.Pieces.FirstOrDefault(x => x.Type == PieceType.Rook
+                    && x.PossibleMoves().Contains(targetSquare)
+                    && x.Color == (game.Board.IsWhiteMove ? PieceColor.White : PieceColor.Black));
+
+            game.Board.PutPiece(targetSquare, rook);
+
+            Assert.That(solved, Is.True);
+        }
+
     }
 }
