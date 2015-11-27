@@ -115,5 +115,23 @@ namespace chezzles.Engine.Tests.GameTests
             Assert.That(solved, Is.True);
         }
 
+        [Test]
+        public void Whether_Game_SendsPuzzleFailedMessage_On_PuzzleSolved()
+        {
+            var failed = false;
+            var parser = new GameParser();
+            var result = parser.Parse(fenWhiteMove);
+            var game = result.FirstOrDefault();
+            var targetSquare = new Square(7, 7);
+            Messenger.Default.Register<PuzzleFailedMessage>(this, (msg) => failed = true);
+
+            var rook = game.Board.Pieces.FirstOrDefault(x => x.Type == PieceType.Rook
+                    && x.PossibleMoves().Contains(targetSquare)
+                    && x.Color == (game.Board.IsWhiteMove ? PieceColor.White : PieceColor.Black));
+
+            game.Board.PutPiece(targetSquare, rook);
+
+            Assert.That(failed, Is.True);
+        }
     }
 }
