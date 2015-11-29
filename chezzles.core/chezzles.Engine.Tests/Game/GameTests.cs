@@ -133,5 +133,29 @@ namespace chezzles.Engine.Tests.GameTests
 
             Assert.That(failed, Is.True);
         }
+
+        [Test]
+        public void Whether_Game_OpponentMakesNextMove_On_PieceMoved()
+        {
+            var pieceMoved = false;
+            var parser = new GameParser();
+            var result = parser.Parse(fenGame);
+            var game = result.FirstOrDefault();
+            var targetSquare = new Square(8, 3);
+
+            var rook = game.Board.Pieces.FirstOrDefault(x => x.Type == PieceType.Rook
+                    && x.PossibleMoves().Contains(targetSquare)
+                    && x.Color == (game.Board.IsWhiteMove ? PieceColor.White : PieceColor.Black));
+
+            var whiteQueen = game.Board.Pieces.FirstOrDefault(x => 
+                    x.Type == PieceType.Queen
+                    && x.Color == PieceColor.White);
+            whiteQueen.PositionUpdated += (e, s) => pieceMoved = true;
+
+            game.Board.PutPiece(targetSquare, rook);
+
+
+            Assert.That(pieceMoved, Is.True);
+        }
     }
 }
