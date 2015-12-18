@@ -73,7 +73,6 @@ namespace chezzles.cocossharp
             foreach (var piece in game.Board.Pieces)
             {
                 var cocoPiece = this.pieceBuilder.Build(piece);
-                cocoPiece.Scale = this.scaleFactor - 0.5f;
                 gameLayer.AddChild(cocoPiece, 99);
             }
         }
