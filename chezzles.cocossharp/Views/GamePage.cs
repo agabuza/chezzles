@@ -91,13 +91,19 @@ namespace chezzles.cocossharp.Views
             this.messenger.Register<PuzzleFailedMessage>(this, (msg) =>
             {
                 this.failedCount++;
-                this.label.Text = $"Solved: {this.solvedCount} Failed: {this.failedCount}";
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    this.label.Text = $"Solved: {this.solvedCount} Failed: {this.failedCount}";
+                });
             });
 
             this.messenger.Register<PuzzleSolvedMessage>(this, (msg) =>
             {
                 this.solvedCount++;
-                this.label.Text = $"Solved: {this.solvedCount} Failed: {this.failedCount}";
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    this.label.Text = $"Solved: {this.solvedCount} Failed: {this.failedCount}";
+                });
             });
         }
 

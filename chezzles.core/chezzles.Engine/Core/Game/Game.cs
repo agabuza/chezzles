@@ -34,7 +34,7 @@ namespace chezzles.engine.Core.Game
 
         private void OnPieceMoved(Board board, Move move)
         {
-            var correctMove = move.Color == PieceColor.White ? NextMoveEntry?.WhiteMove : NextMoveEntry?.BlackMove;
+            var correctMove = move.Color == PieceColor.White ? NextMoveEntry.WhiteMove : NextMoveEntry.BlackMove;
             if (correctMove == move)
             {
                 // we just made blacks move. Time to grab next pair;
