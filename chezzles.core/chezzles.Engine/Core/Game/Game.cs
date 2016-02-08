@@ -55,7 +55,7 @@ namespace chezzles.engine.Core.Game
                     this.PuzzleFailed(this.Board, this.movesEnumerator.Current.WhiteMove);
                 }
 
-                messenger.Send<PuzzleFailedMessage>(new PuzzleFailedMessage());
+                messenger.Send(new PuzzleCompletedMessage(false));
             }
         }
 
@@ -80,7 +80,7 @@ namespace chezzles.engine.Core.Game
                 }
 
                 this.completed = true;
-                messenger.Send<PuzzleSolvedMessage>(new PuzzleSolvedMessage());
+                messenger.Send(new PuzzleCompletedMessage(true));
             }
         }
 

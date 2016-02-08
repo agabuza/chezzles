@@ -7,6 +7,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using chezzles.cocossharp.Messages;
 using chezzles.engine.Core.Game.Messages;
+using Acr.DeviceInfo;
 
 namespace chezzles.cocossharp.Views
 {
@@ -16,93 +17,148 @@ namespace chezzles.cocossharp.Views
         private int failedCount;
 
         CocosSharpView gameView;
-        private Label label;
+        private Label headerLabel;
+        private Label moveLabel;
         private IMessenger messenger = Messenger.Default;
+        private Button next;
+        private Button skip;
 
         public GamePage()
         {
+            BackgroundColor = BackgroundColor = Color.Silver;
             this.gameView = new CocosSharpView()
             {
                 HorizontalOptions = LayoutOptions.FillAndExpand,
-                VerticalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.Fill,
                 // BUG: this needs to be initialized. 
                 // Otherwise ContentSize of page will be negative.
                 DesignResolution = new Size(1, 1),
                 ViewCreated = LoadGame
             };
 
+            PrepareUI();
+            RegisterMessages();
+        }
+
+        private void PrepareUI()
+        {
             var grid = new Grid
             {
-                BackgroundColor = Color.FromHex("#899AE0"),
+                Padding = new Thickness(2),
+                BackgroundColor = Color.Transparent,
                 VerticalOptions = LayoutOptions.FillAndExpand,
+                RowSpacing = 0,
                 RowDefinitions =
                 {
-                    new RowDefinition { Height = 50 },
                     new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
-                    new RowDefinition { Height = 50 }
+                    new RowDefinition { Height = 85 },
+                    new RowDefinition { Height = DeviceInfo.Hardware.ScreenWidth },
+                    new RowDefinition { Height = 60 }
                 }
             };
 
-            grid.Children.Add(
-                this.label = new Label
+            this.headerLabel = new Label
             {
-                Text = $"Solved: {this.solvedCount} Failed: {this.failedCount}",
                 TextColor = Color.White,
+                FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
+                FontAttributes = FontAttributes.Bold,
+                Text = $"Solved: {this.solvedCount} Failed: {this.failedCount}",
                 VerticalOptions = LayoutOptions.CenterAndExpand,
                 HorizontalOptions = LayoutOptions.CenterAndExpand,
-                FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
-                FontFamily = "Droid Sans Mono"
-            }, 0, 0);
+            };
 
-            grid.Children.Add(gameView, 0, 1);
+            this.moveLabel = new Label
+            {
+                BackgroundColor = Color.FromRgba(22f, 41f, 247f, 0.64f),
+                Text = $"Press \"Next\" to start",
+                FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
+                FontAttributes = FontAttributes.Bold,
+                TextColor = Color.White,
+                HorizontalTextAlignment = TextAlignment.Center,
+                VerticalTextAlignment = TextAlignment.Center,
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+            };
+
+            var header = new StackLayout()
+            {
+                BackgroundColor = Color.Transparent,
+                Orientation = StackOrientation.Vertical,
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                Children =
+                {
+                    //this.headerLabel,
+                    this.moveLabel
+                }
+            };
+
+            this.next = new Button
+            {
+                Text = "Next",
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                Command = new RelayCommand(() => this.messenger.Send(new NextPuzzleMessage()))
+            };
+
+            this.skip = new Button
+            {
+                Text = "Skip",
+                WidthRequest = 80,
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                Command = new RelayCommand(() => this.messenger.Send(new SkipPuzzleMessage()))
+            };
 
             var stack = new StackLayout()
             {
-                Padding = new Thickness(5, 5, 5, 5),
+                Spacing = 0,
+                Padding = new Thickness(0),
                 Orientation = StackOrientation.Horizontal,
-                VerticalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.FillAndExpand,
                 Children =
                 {
-                    new Button
-                    {
-                        Text = "Skip",
-                        HorizontalOptions = LayoutOptions.FillAndExpand,
-                        VerticalOptions = LayoutOptions.FillAndExpand,
-                        Command = new RelayCommand(() => this.messenger.Send<SkipPuzzleMessage>(new SkipPuzzleMessage()) )
-                    },
-                    new Button
-                    {
-                        Text = "Next",
-                        HorizontalOptions = LayoutOptions.FillAndExpand,
-                        VerticalOptions = LayoutOptions.FillAndExpand,
-                        Command = new RelayCommand(() => this.messenger.Send<NextPuzzleMessage>(new NextPuzzleMessage()) )
-                    }
+                    skip,
+                    next
                 }
             };
 
-            grid.Children.Add(stack, 0, 2);
-            Content = grid;
+            grid.Children.Add(header, 0, 1);
+            grid.Children.Add(gameView, 0, 2);
+            grid.Children.Add(stack, 0, 3);
 
-            this.RegisterMessages();
+            BackgroundImage = "felt.jpg";
+            Content = grid;
         }
 
         private void RegisterMessages()
         {
-            this.messenger.Register<PuzzleFailedMessage>(this, (msg) =>
+            this.messenger.Register<PuzzleLoadedMessage>(this, (msg) =>
             {
-                this.failedCount++;
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    this.label.Text = $"Solved: {this.solvedCount} Failed: {this.failedCount}";
+                    this.next.IsEnabled = false;
+                    this.moveLabel.TextColor = msg.IsWhiteMove ? Color.White : Color.Black;
+                    this.moveLabel.Style = Device.Styles.SubtitleStyle;
+                    this.moveLabel.Text = $"{(msg.IsWhiteMove ? "White" : "Black")} to move";
                 });
             });
 
-            this.messenger.Register<PuzzleSolvedMessage>(this, (msg) =>
+            this.messenger.Register<PuzzleCompletedMessage>(this, (msg) =>
             {
-                this.solvedCount++;
+                if (msg.IsSolved)
+                    this.solvedCount++;
+                else
+                    this.failedCount++;
+
+                var color = msg.IsSolved ? Color.Green : Color.Red;
+                var message = msg.IsSolved ? "Solved!" : "Incorrect";
+
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    this.label.Text = $"Solved: {this.solvedCount} Failed: {this.failedCount}";
+                    this.next.IsEnabled = true;
+                    this.headerLabel.Text = $"Solved: {this.solvedCount} Failed: {this.failedCount}";
+                    moveLabel.TextColor = color;
+                    moveLabel.Text = message;
                 });
             });
         }

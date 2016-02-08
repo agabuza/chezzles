@@ -37,8 +37,8 @@
     <Compile Include="Core\Board.cs" />
     <Compile Include="Core\Game\Game.cs" />
     <Compile Include="Core\Game\GameResult.cs" />
-    <Compile Include="Core\Game\Messages\PuzzleFailedMessage.cs" />
-    <Compile Include="Core\Game\Messages\PuzzleSolvedMessage.cs" />
+    <Compile Include="Core\Game\Messages\PuzzleLoadedMessage.cs" />
+    <Compile Include="Core\Game\Messages\PuzzleCompletedMessage.cs" />
     <Compile Include="Core\Game\Move.cs" />
     <Compile Include="Core\Game\MoveEntry.cs" />
     <Compile Include="Core\Piece.cs" />

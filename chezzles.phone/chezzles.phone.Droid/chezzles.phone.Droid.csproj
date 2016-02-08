@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
     <AndroidSupportedAbis>armeabi;armeabi-v7a;x86</AndroidSupportedAbis>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -48,6 +49,14 @@
     </JavaOptions>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Acr.DeviceInfo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Acr.DeviceInfo.3.2.3\lib\MonoAndroid10\Acr.DeviceInfo.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Acr.DeviceInfo.Interface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Acr.DeviceInfo.3.2.3\lib\MonoAndroid10\Acr.DeviceInfo.Interface.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="box2d, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CocosSharp.Forms.1.7.1.0\lib\MonoAndroid10\box2d.dll</HintPath>
       <Private>True</Private>
@@ -120,6 +129,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\CustomButton.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -157,11 +167,11 @@
     <AndroidAsset Include="Assets\Content\hd\images\w_pawn.png" />
     <AndroidAsset Include="Assets\Content\hd\images\w_queen.png" />
     <AndroidAsset Include="Assets\Content\hd\images\w_rook.png" />
+    <AndroidResource Include="Resources\drawable\felt.jpg" />
     <Content Include="Properties\AndroidManifest.xml" />
     <AndroidResource Include="Resources\values\Strings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controls\" />
     <Folder Include="Resources\layout\" />
   </ItemGroup>
   <ItemGroup>

@@ -7,6 +7,7 @@ using chezzles.cocossharp.Extensions;
 using chezzles.engine.Core.Game;
 using GalaSoft.MvvmLight.Messaging;
 using chezzles.cocossharp.Messages;
+using chezzles.engine.Core.Game.Messages;
 
 namespace chezzles.cocossharp
 {
@@ -34,6 +35,7 @@ namespace chezzles.cocossharp
                 var game = this.storage.Get(this.index++);
                 ClearBoard();
                 DrawBoard(this, game);
+                this.messenger.Send(new PuzzleLoadedMessage(game.Board.IsWhiteMove, string.Empty));
             });
 
             this.messenger.Register<SkipPuzzleMessage>(this, (msg) =>
@@ -41,6 +43,7 @@ namespace chezzles.cocossharp
                 var game = this.storage.Get(this.index++);
                 ClearBoard();
                 DrawBoard(this, game);
+                this.messenger.Send(new PuzzleLoadedMessage(game.Board.IsWhiteMove, string.Empty));
             });
         }
 
