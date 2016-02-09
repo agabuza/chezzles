@@ -69,8 +69,8 @@ namespace chezzles.cocossharp.Views
 
             this.moveLabel = new Label
             {
-                BackgroundColor = Color.FromRgba(22f, 41f, 247f, 0.64f),
-                Text = $"Press \"Next\" to start",
+                BackgroundColor = Color.FromRgba(22f, 41f, 247f, 0.35f),
+                Text = $"Loading..",
                 FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
                 FontAttributes = FontAttributes.Bold,
                 TextColor = Color.White,
@@ -176,6 +176,10 @@ namespace chezzles.cocossharp.Views
                 CCScene gameScene = new CCScene(gameView);
                 gameScene.AddLayer(new GameLayer(new CCSize((float)600, (float)600)));
                 gameView.RunWithScene(gameScene);
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    this.moveLabel.Text = $"Press \"Next\" to start";
+                });
             }
         }
     }
