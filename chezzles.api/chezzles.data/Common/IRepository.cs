@@ -18,6 +18,6 @@ namespace chezzles.data
     public interface IClientEntity
     {
         [Key]
-        int Id { get; }
+        int Id { get; set; }
     }
 }
