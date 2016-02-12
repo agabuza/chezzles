@@ -4,7 +4,7 @@ using Dapper.Contrib.Extensions;
 
 namespace chezzles.data
 {
-    public interface IRepository<T> : IDisposable
+    public interface IRepository<T>
     {
         void Insert(T entity);
         void Delete(T entity);

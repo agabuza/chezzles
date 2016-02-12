@@ -1,4 +1,6 @@
-﻿using System;
+﻿using chezzles.data;
+using chezzles.data.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,16 +11,23 @@ namespace chezzles.api.Controllers
 {
     public class PuzzlesController : ApiController
     {
+        private IRepository<GameDTO> repository;
+
+        public PuzzlesController(IRepository<GameDTO> repo)
+        {
+            this.repository = repo;
+        }
+
         // GET api/<controller>
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return repository.GetAll().Select(x => x.PgnString);
         }
 
         // GET api/<controller>/5
         public string Get(int id)
         {
-            return "value";
+            return repository.GetById(id)?.PgnString;
         }
     }
 }

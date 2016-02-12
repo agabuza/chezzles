@@ -1,8 +1,10 @@
-﻿namespace chezzles.data.EF
+﻿using System.Threading.Tasks;
+
+namespace chezzles.data.EF
 {
     public interface IUnitOfWork
     {
         void Save();
-        void SaveAsync();
+        Task SaveAsync();
     }
 }
