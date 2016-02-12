@@ -104,7 +104,7 @@ namespace chezzles.Engine.Tests.GameTests
             var result = parser.Parse(fenWhiteMove);
             var game = result.FirstOrDefault();
             var targetSquare = new Square(7, 8);
-            Messenger.Default.Register<PuzzleSolvedMessage>(this, (msg) => solved = true);
+            Messenger.Default.Register<PuzzleCompletedMessage>(this, (msg) => solved = msg.IsSolved);
 
             var rook = game.Board.Pieces.FirstOrDefault(x => x.Type == PieceType.Rook
                     && x.PossibleMoves().Contains(targetSquare)
@@ -123,7 +123,7 @@ namespace chezzles.Engine.Tests.GameTests
             var result = parser.Parse(fenWhiteMove);
             var game = result.FirstOrDefault();
             var targetSquare = new Square(7, 7);
-            Messenger.Default.Register<PuzzleFailedMessage>(this, (msg) => failed = true);
+            Messenger.Default.Register<PuzzleCompletedMessage>(this, (msg) => failed = !msg.IsSolved);
 
             var rook = game.Board.Pieces.FirstOrDefault(x => x.Type == PieceType.Rook
                     && x.PossibleMoves().Contains(targetSquare)
