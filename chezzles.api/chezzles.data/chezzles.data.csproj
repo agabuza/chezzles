@@ -62,6 +62,10 @@
     <Compile Include="EF\IUnitOfWork.cs" />
     <Compile Include="EF\GamesStoreContext.cs" />
     <Compile Include="EF\Repository.cs" />
+    <Compile Include="Migrations\201602160123049_Initial-Migration.cs" />
+    <Compile Include="Migrations\201602160123049_Initial-Migration.Designer.cs">
+      <DependentUpon>201602160123049_Initial-Migration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\GameDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,12 +75,16 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\chezzles.core\chezzles.Engine\chezzles.Engine.csproj">
       <Project>{53c8f965-698a-43d0-b6f1-642d43e378a8}</Project>
       <Name>chezzles.Engine</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201602160123049_Initial-Migration.resx">
+      <DependentUpon>201602160123049_Initial-Migration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
