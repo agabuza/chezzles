@@ -11,6 +11,8 @@ using Acr.DeviceInfo;
 
 namespace chezzles.cocossharp.Views
 {
+    // Wa can't ue xaml as Cocossharp doesn't want to integrate properly.
+    // So stuck to incode creation of View.
     public class GamePage : ContentPage
     {
         private int solvedCount;
@@ -36,11 +38,32 @@ namespace chezzles.cocossharp.Views
                 ViewCreated = LoadGame
             };
 
-            PrepareUI();
+            ToolbarSetup();
+            ControlsSetup();
             RegisterMessages();
         }
 
-        private void PrepareUI()
+        private void ToolbarSetup()
+        {
+            var settings = new ToolbarItem
+            {
+                Icon = "/Resources/drawable/settings.png",
+                Text = "Settings",
+                Command = new Command(() => this.Navigation.PushAsync(new Settings())),
+            };
+
+            this.ToolbarItems.Add(settings);
+
+            //this.Content = new ContentView { Content = new Label { Text = "Testing..." } };
+
+            //this.Title = "Test Page";
+
+            //this.Icon = "Icon.png";
+
+            // NavigationPage.SetTitleIcon(this, this.Icon);
+        }
+
+        private void ControlsSetup()
         {
             var grid = new Grid
             {
@@ -53,23 +76,26 @@ namespace chezzles.cocossharp.Views
                     new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
                     new RowDefinition { Height = 85 },
                     new RowDefinition { Height = DeviceInfo.Hardware.ScreenWidth },
-                    new RowDefinition { Height = 60 }
+                    new RowDefinition { Height = 60 },
+                    new RowDefinition { Height = new GridLength(1, GridUnitType.Star) }
                 }
             };
 
             this.headerLabel = new Label
             {
                 TextColor = Color.White,
-                FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
+                FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
                 FontAttributes = FontAttributes.Bold,
                 Text = $"Solved: {this.solvedCount} Failed: {this.failedCount}",
                 VerticalOptions = LayoutOptions.CenterAndExpand,
                 HorizontalOptions = LayoutOptions.CenterAndExpand,
             };
 
+            grid.Children.Add(this.headerLabel, 0, 0);
+
             this.moveLabel = new Label
             {
-                BackgroundColor = Color.FromRgba(22f, 41f, 247f, 0.35f),
+                BackgroundColor = Color.FromRgba(22f, 41f, 247f, 0.45f),
                 Text = $"Loading..",
                 FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label)),
                 FontAttributes = FontAttributes.Bold,

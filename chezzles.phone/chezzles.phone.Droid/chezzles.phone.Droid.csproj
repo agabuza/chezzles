@@ -170,6 +170,9 @@
     <AndroidResource Include="Resources\drawable\felt.jpg" />
     <Content Include="Properties\AndroidManifest.xml" />
     <AndroidResource Include="Resources\values\Strings.xml" />
+    <AndroidResource Include="Resources\drawable\check.png" />
+    <AndroidResource Include="Resources\drawable\refresh.png" />
+    <AndroidResource Include="Resources\drawable\settings.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\layout\" />

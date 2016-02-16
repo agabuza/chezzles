@@ -54,6 +54,12 @@ namespace chezzles.cocossharp.Pieces
 
         private bool ToucheBegan(CCTouch touch, CCEvent e)
         {
+            var colorToMove = this.piece.Board.IsWhiteMove ? PieceColor.White : PieceColor.Black;
+            if (colorToMove != this.piece.Color)
+            {
+                return false;
+            }
+
             this.initPosition = this.Position;
             var scaledWidth = ContentSize.Width * ScaleX;
             var scaledHeight = ContentSize.Height * ScaleY;

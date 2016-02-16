@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="chezzles.cocossharp.Settings">
+  <ContentPage.ToolbarItems>
+    <ToolbarItem Text="Reset"
+					 Icon="/Resouces/drawable/check.png"
+					 Priority="0" Activated="OnSaveSettingsClicked"></ToolbarItem>
+  </ContentPage.ToolbarItems>
+  <ContentPage.Content>
+    <StackLayout Orientation="Vertical">
+      <Label Text="Board type"/>
+      <Label Text="Piece type"/>
+      <Label Text="White always down"/>
+      <Label Text="Sounds"/>
+    </StackLayout>
+  </ContentPage.Content>
+</ContentPage>

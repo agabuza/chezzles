@@ -47,16 +47,11 @@
     <Compile Include="Views\PuzzleSolver.xaml.cs">
       <DependentUpon>PuzzleSolver.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Acr.DeviceInfo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\chezzles.phone\packages\Acr.DeviceInfo.3.2.3\lib\portable-win+net45+wp8+win8+wpa81\Acr.DeviceInfo.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Acr.DeviceInfo.Interface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\chezzles.phone\packages\Acr.DeviceInfo.3.2.3\lib\portable-win+net45+wp8+win8+wpa81\Acr.DeviceInfo.Interface.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="GalaSoft.MvvmLight, Version=5.2.0.37222, Culture=neutral, PublicKeyToken=e7570ab207bcb616">
       <HintPath>packages\MvvmLightLibs.5.2.0.0\lib\portable-net45+wp8+wpa81+netcore45+monoandroid1+xamarin.ios10\GalaSoft.MvvmLight.dll</HintPath>
     </Reference>
@@ -87,6 +82,12 @@
     <Reference Include="Xamarin.Forms.Xaml">
       <HintPath>..\chezzles.phone\packages\Xamarin.Forms.2.0.1.6505\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
+    <Reference Include="Acr.DeviceInfo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\chezzles.phone\packages\Acr.DeviceInfo.3.2.3\lib\portable-win+net45+wp8+win8+wpa81\Acr.DeviceInfo.dll</HintPath>
+    </Reference>
+    <Reference Include="Acr.DeviceInfo.Interface, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\chezzles.phone\packages\Acr.DeviceInfo.3.2.3\lib\portable-win+net45+wp8+win8+wpa81\Acr.DeviceInfo.Interface.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Content\puzzles.pgn" />
@@ -94,6 +95,9 @@
       <SubType>Designer</SubType>
     </None>
     <EmbeddedResource Include="Views\PuzzleSolver.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Settings.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
