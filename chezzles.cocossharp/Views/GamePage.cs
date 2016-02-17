@@ -53,14 +53,6 @@ namespace chezzles.cocossharp.Views
             };
 
             this.ToolbarItems.Add(settings);
-
-            //this.Content = new ContentView { Content = new Label { Text = "Testing..." } };
-
-            //this.Title = "Test Page";
-
-            //this.Icon = "Icon.png";
-
-            // NavigationPage.SetTitleIcon(this, this.Icon);
         }
 
         private void ControlsSetup()
