@@ -1,12 +1,9 @@
-﻿using Ninject;
-using Owin;
-
-using Ninject.Web.WebApi;
+﻿using Owin;
 using System.Reflection;
 using Ninject.Web.Common.OwinHost;
 using Ninject.Web.WebApi.OwinHost;
-using System;
 using System.Web.Http;
+using Ninject;
 
 namespace chezzles.api.App_Start
 {
@@ -14,7 +11,8 @@ namespace chezzles.api.App_Start
     {
         public static void RegisterNinject(IAppBuilder app)
         {
-            app.UseNinjectMiddleware(CreateKernel).UseNinjectWebApi(new HttpConfiguration());
+            app.UseNinjectMiddleware(CreateKernel)
+               .UseNinjectWebApi(GlobalConfiguration.Configuration);
         }
 
         private static StandardKernel CreateKernel()
