@@ -15,14 +15,13 @@ namespace chezzles.data.EF
         public GamesStoreContext()
             : base("GamesStoreContext")
         {
-
         }
 
         internal DbSet<GameDTO> Games { get; set; }
 
         public DbEntityEntry<T> ContextEntry<T>(T entity) where T : class
         {
-            throw new NotImplementedException();
+            return this.Entry<T>(entity);
         }
 
         public DbSet<T> GetDbSet<T>() where T : class
