@@ -17,6 +17,7 @@ namespace chezzles.data.EF
         {
         }
 
+        internal DbSet<Group> Groups { get; set; }
         internal DbSet<GameDTO> Games { get; set; }
 
         public DbEntityEntry<T> ContextEntry<T>(T entity) where T : class

@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace chezzles.data.Model
 {
-    [Table("Games")]
-    public class GameDTO : IClientEntity
+    public class Group : IClientEntity
     {
         public int Id { get; set; }
-        public string PgnString { get; set; }
 
-        public Group Group { get; set; }
+        public string Name { get; set; }
+        public Difficulty Difficulty { get; set; }
     }
 }

@@ -66,8 +66,14 @@
     <Compile Include="Migrations\201602160123049_Initial-Migration.Designer.cs">
       <DependentUpon>201602160123049_Initial-Migration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603010226430_Groups.cs" />
+    <Compile Include="Migrations\201603010226430_Groups.Designer.cs">
+      <DependentUpon>201603010226430_Groups.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\Difficulty.cs" />
     <Compile Include="Model\GameDTO.cs" />
+    <Compile Include="Model\Group.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Dapper\Repository.cs" />
   </ItemGroup>
@@ -84,6 +90,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201602160123049_Initial-Migration.resx">
       <DependentUpon>201602160123049_Initial-Migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603010226430_Groups.resx">
+      <DependentUpon>201603010226430_Groups.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
