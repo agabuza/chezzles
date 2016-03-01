@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "chezzles.api", "chezzles.api\chezzles.api.csproj", "{2FC9D0CB-A2CB-481D-BEC3-6C71218E35D8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "chezzles.Engine", "..\chezzles.core\chezzles.Engine\chezzles.Engine.csproj", "{53C8F965-698A-43D0-B6F1-642D43E378A8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{4C6B043D-564D-4548-9A95-47402B6519BF}"
@@ -19,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2FC9D0CB-A2CB-481D-BEC3-6C71218E35D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2FC9D0CB-A2CB-481D-BEC3-6C71218E35D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2FC9D0CB-A2CB-481D-BEC3-6C71218E35D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2FC9D0CB-A2CB-481D-BEC3-6C71218E35D8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{53C8F965-698A-43D0-B6F1-642D43E378A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{53C8F965-698A-43D0-B6F1-642D43E378A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53C8F965-698A-43D0-B6F1-642D43E378A8}.Release|Any CPU.ActiveCfg = Release|Any CPU

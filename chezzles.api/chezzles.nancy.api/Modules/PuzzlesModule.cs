@@ -1,27 +1,26 @@
-﻿using Nancy;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using chezzles.data;
+using chezzles.data.Model;
+using Nancy;
 using System.Linq;
-using System.Web;
 
 namespace chezzles.nancy.api.Modules
 {
     public class PuzzlesModule : NancyModule
     {
-        public PuzzlesModule() : base ("/api")
-        {
-            Get["/puzzles"] = _ => "puzzles";
+        private IRepository<GameDTO> repo;
 
-            Get["/puzzles/{id:int}", runAsync: true] = async (_, token) =>
+        public PuzzlesModule(IRepository<GameDTO> repo) 
+            : base ("/api")
+        {
+            this.repo = repo;
+            Get["/puzzles"] = _ =>
             {
-                return $"Puzzle with ID: {_.id}";
+                return this.repo.GetAll().ToList();
             };
 
-            Delete["/puzzles/{id:int}", runAsync: true] = async (_, token) =>
+            Get["/puzzles/{id:int}"] = _ =>
             {
-                // $"Puzzle with ID {_.id} deleted";
-                return HttpStatusCode.OK;
+                return this.repo.GetById(_.id);
             };
         }
     }
