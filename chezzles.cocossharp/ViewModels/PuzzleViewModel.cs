@@ -1,4 +1,5 @@
-﻿using chezzles.engine.Core.Game.Messages;
+﻿using chezzles.cocossharp.Messages;
+using chezzles.engine.Core.Game.Messages;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using System;

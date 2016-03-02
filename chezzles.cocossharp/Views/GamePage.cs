@@ -69,7 +69,6 @@ namespace chezzles.cocossharp.Views
                     new RowDefinition { Height = 85 },
                     new RowDefinition { Height = DeviceInfo.Hardware.ScreenWidth },
                     new RowDefinition { Height = 60 },
-                    new RowDefinition { Height = new GridLength(1, GridUnitType.Star) }
                 }
             };
 

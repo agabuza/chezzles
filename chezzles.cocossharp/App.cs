@@ -13,7 +13,7 @@ namespace chezzles.cocossharp
         public App()
         {
             // The root page of your application
-            MainPage = new GamePage();
+            MainPage = new NavigationPage( new GamePage());
         }
 
         protected override void OnStart()

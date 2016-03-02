@@ -43,6 +43,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\GamesStorage.cs" />
     <Compile Include="ViewModels\PuzzleViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="Views\GamePage.cs" />
     <Compile Include="Views\PuzzleSolver.xaml.cs">
       <DependentUpon>PuzzleSolver.xaml</DependentUpon>
