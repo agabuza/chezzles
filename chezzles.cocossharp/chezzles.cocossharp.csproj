@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Common\ISettingsProvider.cs" />
     <Compile Include="Extensions\CCPointExtensions.cs" />
     <Compile Include="GameLayer.cs" />
     <Compile Include="Messages\NextPuzzleMessage.cs" />

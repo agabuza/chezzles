@@ -31,6 +31,8 @@ namespace chezzles.phone.Droid
 			global::CocosSharp.Forms.Android.Resource.String.ApplicationName = global::chezzles.phone.Droid.Resource.String.ApplicationName;
 			global::CocosSharp.Forms.Android.Resource.String.Hello = global::chezzles.phone.Droid.Resource.String.Hello;
 			global::CocosSharp.Forms.Android.Resource.String.library_name = global::chezzles.phone.Droid.Resource.String.library_name;
+			global::PCLStorage.Resource.String.ApplicationName = global::chezzles.phone.Droid.Resource.String.ApplicationName;
+			global::PCLStorage.Resource.String.Hello = global::chezzles.phone.Droid.Resource.String.Hello;
 			global::Xamarin.Forms.Platform.Resource.Animation.abc_fade_in = global::chezzles.phone.Droid.Resource.Animation.abc_fade_in;
 			global::Xamarin.Forms.Platform.Resource.Animation.abc_fade_out = global::chezzles.phone.Droid.Resource.Animation.abc_fade_out;
 			global::Xamarin.Forms.Platform.Resource.Animation.abc_grow_fade_in_from_bottom = global::chezzles.phone.Droid.Resource.Animation.abc_grow_fade_in_from_bottom;

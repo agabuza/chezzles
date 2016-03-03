@@ -199,5 +199,10 @@ namespace chezzles.cocossharp.Views
                 });
             }
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace chezzles.cocossharp
         public void OnSaveSettingsClicked(object sender, EventArgs e)
         {
             this.viewModel.Save();
-            this.Navigation.PushAsync(new GamePage());
+            this.Navigation.PopAsync();
         }
     }
 }
