@@ -8,6 +8,8 @@ using chezzles.engine.Core.Game;
 using GalaSoft.MvvmLight.Messaging;
 using chezzles.cocossharp.Messages;
 using chezzles.engine.Core.Game.Messages;
+using Xamarin.Forms;
+using chezzles.cocossharp.Services;
 
 namespace chezzles.cocossharp
 {
@@ -20,19 +22,19 @@ namespace chezzles.cocossharp
 
         // change hardcoded values to get correct board place
         public static CCPoint Origin = new CCPoint(0, 0);
-        private GamesStorage storage;
-        private int index;
+        private int index = 1;
+        private IRestService<Game> service;
 
         public GameLayer(CCSize size)
             : base(size)
         {
             this.pieceBuilder = new CocoPieceBuilder();
-            this.storage = new GamesStorage();
+            this.service = DependencyService.Get<IRestService<Game>>();
             Color = CCColor3B.DarkGray;
 
             this.messenger.Register<NextPuzzleMessage>(this, (msg) =>
             {
-                var game = this.storage.Get(this.index++);
+                var game = this.service.GetById(this.index++).Result;
                 ClearBoard();
                 DrawBoard(this, game);
                 this.messenger.Send(new PuzzleLoadedMessage(game.Board.IsWhiteMove, string.Empty));
@@ -40,7 +42,7 @@ namespace chezzles.cocossharp
 
             this.messenger.Register<SkipPuzzleMessage>(this, (msg) =>
             {
-                var game = this.storage.Get(this.index++);
+                var game = this.service.GetById(this.index++).Result;
                 ClearBoard();
                 DrawBoard(this, game);
                 this.messenger.Send(new PuzzleLoadedMessage(game.Board.IsWhiteMove, string.Empty));
