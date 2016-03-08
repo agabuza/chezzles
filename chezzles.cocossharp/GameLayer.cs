@@ -8,7 +8,6 @@ using chezzles.engine.Core.Game.Messages;
 using Xamarin.Forms;
 using chezzles.cocossharp.Services;
 using System.Threading.Tasks;
-using System;
 using chezzles.cocossharp.Common;
 
 namespace chezzles.cocossharp
@@ -19,42 +18,93 @@ namespace chezzles.cocossharp
         private CocoPieceBuilder pieceBuilder;
         private CCTileMap tileMap;
         private float scaleFactor = 4;
-        private IMessenger messenger = Messenger.Default;
 
-        // change hardcoded values to get correct board place
         public static CCPoint Origin = new CCPoint(0, 0);
-        private int index = 1;
+
         private IRestService<Game> service;
         private ISetttingsProvider settings;
+        private IMessenger messenger;
 
         public GameLayer(CCSize size)
             : base(size)
         {
-            this.settings = DependencyService.Get<ISetttingsProvider>(DependencyFetchTarget.GlobalInstance);
-            this.service = DependencyService.Get<IRestService<Game>>();
-            PuzzleId = int.Parse(string.IsNullOrEmpty(this.settings[PUZZLE_ID]) ? "0" : this.settings[PUZZLE_ID]);
+            PuzzleId = int.Parse(string.IsNullOrEmpty(this.Settings[PUZZLE_ID]) ? "0" : this.Settings[PUZZLE_ID]);
             this.pieceBuilder = new CocoPieceBuilder();
             Color = CCColor3B.DarkGray;
 
-            this.messenger.Register<NextPuzzleMessage>(this, LoadNextPuzzle);
-            this.messenger.Register<SkipPuzzleMessage>(this, LoadNextPuzzle);
+            this.Messenger.Register<NextPuzzleMessage>(this, LoadNextPuzzle);
+            this.Messenger.Register<SkipPuzzleMessage>(this, LoadNextPuzzle);
         }
 
         private void LoadNextPuzzle(NextPuzzleMessage obj)
         {
             Task.Run(async () =>
             {
-                var game = await this.service.GetById(++this.PuzzleId);
+                var game = await this.Service.GetById(++this.PuzzleId);
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     ClearBoard();
                     DrawBoard(this, game);
-                    this.messenger.Send(new PuzzleLoadedMessage(game.Board.IsWhiteMove, string.Empty));
+                    this.Messenger.Send(new PuzzleLoadedMessage(game.Board.IsWhiteMove, string.Empty));
                 });
             });
         }
 
         public int PuzzleId { get; set; }
+
+        public ISetttingsProvider Settings
+        {
+            get
+            {
+                if (this.settings == null)
+                {
+                    this.settings = DependencyService.Get<ISetttingsProvider>(DependencyFetchTarget.GlobalInstance);
+                }
+
+                return this.settings;
+            }
+
+            internal set
+            {
+                this.settings = value;
+            }
+        }
+
+        public IRestService<Game> Service
+        {
+            get
+            {
+                if (this.service == null)
+                {
+                    this.service = DependencyService.Get<IRestService<Game>>();
+                }
+
+                return this.service;
+            }
+
+            internal set
+            {
+                this.service = value;
+            }
+        }
+
+        public IMessenger Messenger
+        {
+            get
+            {
+                if (this.messenger == null)
+                {
+                    this.messenger = GalaSoft.MvvmLight.Messaging.Messenger.Default;
+                }
+
+                return messenger;
+            }
+
+            internal set
+            {
+                messenger = value;
+            }
+        }
 
         private void ClearBoard()
         {
@@ -97,8 +147,14 @@ namespace chezzles.cocossharp
 
         internal void Save()
         {
-            this.settings[PUZZLE_ID] = PuzzleId.ToString();
-            this.settings.SaveAsync();
+            this.Settings[PUZZLE_ID] = PuzzleId.ToString();
+            this.Settings.SaveAsync();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            this.Save();
+            base.Dispose(disposing);
         }
     }
 }
