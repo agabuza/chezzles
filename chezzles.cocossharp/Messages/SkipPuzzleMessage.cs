@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace chezzles.cocossharp.Messages
 {
-    public class SkipPuzzleMessage
+    public class SkipPuzzleMessage : NextPuzzleMessage
     {
     }
 }

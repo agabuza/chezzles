@@ -1,20 +1,21 @@
-﻿using System.Collections.Generic;
-using CocosSharp;
+﻿using CocosSharp;
 using chezzles.cocossharp.Pieces;
-using chezzles.engine.Data;
 using System.Linq;
-using chezzles.cocossharp.Extensions;
 using chezzles.engine.Core.Game;
 using GalaSoft.MvvmLight.Messaging;
 using chezzles.cocossharp.Messages;
 using chezzles.engine.Core.Game.Messages;
 using Xamarin.Forms;
 using chezzles.cocossharp.Services;
+using System.Threading.Tasks;
+using System;
+using chezzles.cocossharp.Common;
 
 namespace chezzles.cocossharp
 {
     public class GameLayer : CCLayerColor
     {
+        private const string PUZZLE_ID = "puzzleId";
         private CocoPieceBuilder pieceBuilder;
         private CCTileMap tileMap;
         private float scaleFactor = 4;
@@ -24,30 +25,36 @@ namespace chezzles.cocossharp
         public static CCPoint Origin = new CCPoint(0, 0);
         private int index = 1;
         private IRestService<Game> service;
+        private ISetttingsProvider settings;
 
         public GameLayer(CCSize size)
             : base(size)
         {
-            this.pieceBuilder = new CocoPieceBuilder();
+            this.settings = DependencyService.Get<ISetttingsProvider>(DependencyFetchTarget.GlobalInstance);
             this.service = DependencyService.Get<IRestService<Game>>();
+            PuzzleId = int.Parse(string.IsNullOrEmpty(this.settings[PUZZLE_ID]) ? "0" : this.settings[PUZZLE_ID]);
+            this.pieceBuilder = new CocoPieceBuilder();
             Color = CCColor3B.DarkGray;
 
-            this.messenger.Register<NextPuzzleMessage>(this, (msg) =>
-            {
-                var game = this.service.GetById(this.index++).Result;
-                ClearBoard();
-                DrawBoard(this, game);
-                this.messenger.Send(new PuzzleLoadedMessage(game.Board.IsWhiteMove, string.Empty));
-            });
+            this.messenger.Register<NextPuzzleMessage>(this, LoadNextPuzzle);
+            this.messenger.Register<SkipPuzzleMessage>(this, LoadNextPuzzle);
+        }
 
-            this.messenger.Register<SkipPuzzleMessage>(this, (msg) =>
+        private void LoadNextPuzzle(NextPuzzleMessage obj)
+        {
+            Task.Run(async () =>
             {
-                var game = this.service.GetById(this.index++).Result;
-                ClearBoard();
-                DrawBoard(this, game);
-                this.messenger.Send(new PuzzleLoadedMessage(game.Board.IsWhiteMove, string.Empty));
+                var game = await this.service.GetById(++this.PuzzleId);
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    ClearBoard();
+                    DrawBoard(this, game);
+                    this.messenger.Send(new PuzzleLoadedMessage(game.Board.IsWhiteMove, string.Empty));
+                });
             });
         }
+
+        public int PuzzleId { get; set; }
 
         private void ClearBoard()
         {
@@ -86,6 +93,12 @@ namespace chezzles.cocossharp
         {
             base.AddedToScene();
             AddBoard();
+        }
+
+        internal void Save()
+        {
+            this.settings[PUZZLE_ID] = PuzzleId.ToString();
+            this.settings.SaveAsync();
         }
     }
 }

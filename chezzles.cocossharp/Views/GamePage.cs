@@ -8,6 +8,7 @@ using GalaSoft.MvvmLight.Messaging;
 using chezzles.cocossharp.Messages;
 using chezzles.engine.Core.Game.Messages;
 using Acr.DeviceInfo;
+using chezzles.cocossharp.Common;
 
 namespace chezzles.cocossharp.Views
 {
@@ -24,6 +25,7 @@ namespace chezzles.cocossharp.Views
         private IMessenger messenger = Messenger.Default;
         private Button next;
         private Button skip;
+        private GameLayer game;
 
         public GamePage()
         {
@@ -185,14 +187,15 @@ namespace chezzles.cocossharp.Views
             var gameView = sender as CCGameView;
             if (gameView != null)
             {
-                // Set world dimensions
-                gameView.DesignResolution = new CCSizeI((int)600, (int)600);
+                gameView.DesignResolution = new CCSizeI(600, 600);
                 gameView.ContentManager.SearchPaths =
                     new List<string>() { "", "hd", "animations", "fonts", "sounds", "images" };
 
                 CCScene gameScene = new CCScene(gameView);
-                gameScene.AddLayer(new GameLayer(new CCSize((float)600, (float)600)));
+                this.game = new GameLayer(new CCSize(600, 600));
+                gameScene.AddLayer(game);
                 gameView.RunWithScene(gameScene);
+
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     this.moveLabel.Text = $"Press \"Next\" to start";
@@ -203,6 +206,12 @@ namespace chezzles.cocossharp.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            this.game.Save();
         }
     }
 }
