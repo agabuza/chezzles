@@ -147,6 +147,7 @@
     <AndroidAsset Include="Assets\Content\fonts\MarkerFelt-22.xnb" />
     <AndroidAsset Include="Assets\Content\tilemaps\board.tmx" />
     <AndroidAsset Include="Assets\LeagueGothic-Regular.otf" />
+    <AndroidAsset Include="Assets\Content\tilemaps\board_book.tmx" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
@@ -177,6 +178,9 @@
     <AndroidAsset Include="Assets\Content\hd\images\w_queen.png" />
     <AndroidAsset Include="Assets\Content\hd\images\w_rook.png" />
     <AndroidResource Include="Resources\drawable\felt.jpg" />
+    <AndroidAsset Include="Assets\Content\hd\book_sprites.png" />
+    <AndroidAsset Include="Assets\Content\hd\book_sprites.plist" />
+    <AndroidAsset Include="Assets\Content\hd\images\chessboard_book.jpg" />
     <Content Include="Properties\AndroidManifest.xml" />
     <AndroidResource Include="Resources\values\Strings.xml" />
     <AndroidResource Include="Resources\drawable\check.png" />

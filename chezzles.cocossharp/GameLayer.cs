@@ -9,6 +9,8 @@ using Xamarin.Forms;
 using chezzles.cocossharp.Services;
 using System.Threading.Tasks;
 using chezzles.cocossharp.Common;
+using Newtonsoft.Json;
+using chezzles.cocossharp.Pieces.Model;
 
 namespace chezzles.cocossharp
 {
@@ -117,14 +119,21 @@ namespace chezzles.cocossharp
 
         private void AddBoard()
         {
-            this.tileMap = new CCTileMap("tilemaps/board.tmx");
+            var boardPath = "tilemaps/board.tmx";
+            var set = settings["chess-set"];
+            var chessSet = JsonConvert.DeserializeObject<ChessSet>(set);
+            if (chessSet != null && !string.IsNullOrEmpty(chessSet.BoardPath))
+            {
+                boardPath = chessSet.BoardPath;
+            }
+
+            this.tileMap = new CCTileMap(boardPath);
             this.scaleFactor = this.ContentSize.Width / tileMap.TileLayersContainer.ContentSize.Width;
             this.tileMap.Scale = scaleFactor;
 
             tileMap.PositionX = Origin.X;
             tileMap.PositionY = Origin.Y;
             tileMap.AnchorPoint = new CCPoint(0, 0);
-
             tileMap.Antialiased = false;
             this.AddChild(tileMap, -1);
         }

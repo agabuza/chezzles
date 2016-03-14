@@ -16,9 +16,6 @@
         <ColumnDefinition Width="40"/>
         <ColumnDefinition Width="*"/>
       </Grid.ColumnDefinitions>
-
-      <Label Text="Board type:" Grid.Row="0" Grid.Column="0"/>
-
       <Label Text="White always at the bottom:" Grid.Row="1" Grid.Column="0"/>
       <Switch IsEnabled="False" IsToggled="True" Grid.Row="1" Grid.Column="1"/>
 

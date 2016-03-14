@@ -69,7 +69,7 @@ namespace chezzles.cocossharp.Views
                 RowDefinitions =
                 {
                     new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
-                    new RowDefinition { Height = 85 },
+                    //new RowDefinition { Height = 85 },
                     new RowDefinition { Height = DeviceInfo.Hardware.ScreenWidth },
                     new RowDefinition { Height = 60 },
                 }
@@ -85,7 +85,7 @@ namespace chezzles.cocossharp.Views
                 HorizontalOptions = LayoutOptions.CenterAndExpand,
             };
 
-            grid.Children.Add(this.headerLabel, 0, 0);
+            //grid.Children.Add(this.headerLabel, 0, 0);
 
             this.moveLabel = new Label
             {
@@ -149,9 +149,9 @@ namespace chezzles.cocossharp.Views
                 Scale = 2
             };
 
-            grid.Children.Add(header, 0, 1);
-            grid.Children.Add(BusyIndicator(gameView, this.activityIndicator), 0, 2);
-            grid.Children.Add(stack, 0, 3);
+            grid.Children.Add(header, 0, 0);
+            grid.Children.Add(BusyIndicator(gameView, this.activityIndicator), 0, 1);
+            grid.Children.Add(stack, 0, 2);
 
             BackgroundImage = "felt.jpg";
             Content = grid;

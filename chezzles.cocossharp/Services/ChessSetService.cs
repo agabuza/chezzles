@@ -13,8 +13,17 @@ namespace chezzles.cocossharp.Services
         {
             var list = new List<ChessSet>()
             {
-                new ChessSet { Name = "Classic", FilePath = "sprites.png", Description = "Classical chess set" },
-                new ChessSet { Name = "Book", FilePath = "book_sprites.png", Description = "Puzzles from your bookshelf" }
+                new ChessSet { Name = "Classic",
+                    FilePath = "hd/sprites.plist",
+                    BoardPath = "tilemaps/board.tmx",
+                    Description = "Classical chess set"
+                },
+                new ChessSet {
+                    Name = "Book",
+                    FilePath = "hd/book_sprites.plist",
+                    BoardPath = "tilemaps/board_book.tmx",
+                    Description = "Puzzles from your bookshelf"
+                }
             };
 
             return Task.FromResult(list);

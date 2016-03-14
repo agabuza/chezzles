@@ -3,6 +3,7 @@ using chezzles.cocossharp.Pieces.Model;
 using chezzles.cocossharp.Services;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -44,10 +45,12 @@ namespace chezzles.cocossharp.ViewModels
         protected async Task OnInitialized()
         {
             this.ChessSets = await this.Service.GetAll();
-            var selectedName = this.Settings[CHESS_SET];
-            if (!string.IsNullOrEmpty(selectedName))
+
+            var set = Settings[CHESS_SET];
+            var chessSet = JsonConvert.DeserializeObject<ChessSet>(set);
+            if (chessSet != null)
             {
-                this.SelectedChessSet = this.ChessSets.FirstOrDefault(x => x.Name == selectedName);
+                this.SelectedChessSet = this.ChessSets.FirstOrDefault(x => x.FilePath == chessSet.FilePath);
             }
 
             this.IsBusy = false;
@@ -132,7 +135,7 @@ namespace chezzles.cocossharp.ViewModels
 
         public void Save()
         {
-            this.Settings[CHESS_SET] = SelectedChessSet?.Name;
+            this.Settings[CHESS_SET] = JsonConvert.SerializeObject(SelectedChessSet);
             this.Settings.SaveAsync();
         }
     }

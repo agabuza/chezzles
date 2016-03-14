@@ -117,9 +117,7 @@
       <Name>chezzles.Engine</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Content\Images\felt.jpg" />
   </ItemGroup>
