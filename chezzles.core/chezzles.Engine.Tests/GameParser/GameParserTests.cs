@@ -76,6 +76,42 @@ namespace chezzles.Engine.Tests
 
 1. Rg8+ 1-0";
 
+private const string gamesPgn = @"[Event ""Thèmes 64""]
+[Site ""3º Premio""]
+        [Date ""1967.??.??""]
+        [Round ""-""]
+        [White ""ANCIN Andrej""]
+        [Black ""#2""]
+        [Result ""1-0""]
+        [SetUp ""1""]
+        [FEN ""K1N5/n1PkNB2/2nB4/1P5p/6q1/7Q/4R3/8 w - - 0 1""]
+
+1. Nf5 1-0
+
+[Event ""World Chess Compositions Tournament""]
+        [Site ""17° Lugar""]
+        [Date ""1967.??.??""]
+        [Round ""-""]
+        [White ""ANCIN Andrej""]
+        [Black ""#2""]
+        [Result ""1-0""]
+        [SetUp ""1""]
+        [FEN ""6r1/r2N2Np/2B4B/p5K1/3k3P/2R1R3/n1p5/2q1Q3 w - - 0 1""]
+
+1. h5 1-0
+
+[Event ""L'Italia Scacchistica""]
+        [Site ""?""]
+        [Date ""1968.??.??""]
+        [Round ""-""]
+        [White ""ANCIN Andrej""]
+        [Black ""#2""]
+        [Result ""1-0""]
+        [SetUp ""1""]
+        [FEN ""8/BB1r4/KN3P2/1Q1N1p2/Rb2kP1q/n3P3/n3P3/3r4 w - - 0 1""]
+
+1. Nc4 Rd2 1-0";
+
         [Test]
         public void Whether_GameParser_ParsesGame_On_Parse()
         {
@@ -116,6 +152,17 @@ namespace chezzles.Engine.Tests
 
             Assert.That(game != null);
             Assert.That(game.Board.IsWhiteMove == isWhiteMove);
+        }
+
+        [Test]
+        public void Whether_GameParser_ParsesMultipleGames_On_Parse()
+        {
+            var parser = new GameParser();
+
+            var result = parser.Parse(gamesPgn);
+
+            Assert.That(result != null);
+            Assert.That(result.Count() == 2);
         }
     }
 }

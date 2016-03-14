@@ -26,6 +26,7 @@ namespace chezzles.cocossharp.Views
         private Button next;
         private Button skip;
         private GameLayer game;
+        private ActivityIndicator activityIndicator;
 
         public GamePage()
         {
@@ -102,11 +103,10 @@ namespace chezzles.cocossharp.Views
             var header = new StackLayout()
             {
                 BackgroundColor = Color.Transparent,
-                Orientation = StackOrientation.Vertical,
+                Orientation = StackOrientation.Horizontal,
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 Children =
                 {
-                    //this.headerLabel,
                     this.moveLabel
                 }
             };
@@ -141,20 +141,49 @@ namespace chezzles.cocossharp.Views
                 }
             };
 
+            this.activityIndicator = new ActivityIndicator
+            {
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.Start,
+                Color = Color.Silver,
+                Scale = 2
+            };
+
             grid.Children.Add(header, 0, 1);
-            grid.Children.Add(gameView, 0, 2);
+            grid.Children.Add(BusyIndicator(gameView, this.activityIndicator), 0, 2);
             grid.Children.Add(stack, 0, 3);
 
             BackgroundImage = "felt.jpg";
             Content = grid;
         }
 
+        protected AbsoluteLayout BusyIndicator(View content, ActivityIndicator indicator)
+        {
+            var overlay = new AbsoluteLayout();
+            AbsoluteLayout.SetLayoutFlags(content, AbsoluteLayoutFlags.PositionProportional);
+            AbsoluteLayout.SetLayoutBounds(content, new Rectangle(0f, 0f, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
+            AbsoluteLayout.SetLayoutFlags(indicator, AbsoluteLayoutFlags.PositionProportional);
+            AbsoluteLayout.SetLayoutBounds(indicator, new Rectangle(0.5, 0.5, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
+            overlay.Children.Add(content);
+            overlay.Children.Add(indicator);
+            return overlay;
+        }
+
         private void RegisterMessages()
         {
+            this.messenger.Register<NextPuzzleMessage>(this, (msg) =>
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    this.activityIndicator.IsRunning = true;
+                });
+            });
+
             this.messenger.Register<PuzzleLoadedMessage>(this, (msg) =>
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
+                    this.activityIndicator.IsRunning = false;
                     this.next.IsEnabled = false;
                     this.moveLabel.TextColor = msg.IsWhiteMove ? Color.White : Color.Black;
                     this.moveLabel.Style = Device.Styles.SubtitleStyle;

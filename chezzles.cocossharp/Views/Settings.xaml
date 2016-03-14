@@ -6,11 +6,44 @@
 					 Priority="0" Activated="OnSaveSettingsClicked"></ToolbarItem>
   </ContentPage.ToolbarItems>
   <ContentPage.Content>
-    <StackLayout Orientation="Vertical">
-      <Label Text="Board type"/>
-      <Label Text="Piece type"/>
-      <Label Text="White always down"/>
-      <Label Text="Sounds"/>
-    </StackLayout>
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="20"/>
+        <RowDefinition Height="20"/>
+        <RowDefinition Height="*"/>
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="40"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+
+      <Label Text="Board type:" Grid.Row="0" Grid.Column="0"/>
+
+      <Label Text="White always at the bottom:" Grid.Row="1" Grid.Column="0"/>
+      <Switch IsEnabled="False" IsToggled="True" Grid.Row="1" Grid.Column="1"/>
+
+      <Label Text="Piece type:" Grid.Row="2" Grid.Column="0"/>
+      <ListView Grid.Row="2" Grid.Column="1"
+                SelectedItem="{Binding SelectedChessSet, Mode=TwoWay}"
+                ItemsSource="{Binding ChessSets}">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <TextCell Text="{Binding Name}" Detail="{Binding Description}" />
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+
+      <ActivityIndicator IsVisible="{Binding IsBusy}"
+             IsRunning="{Binding IsBusy}"
+             Color="Silver"
+             VerticalOptions="CenterAndExpand"
+             HorizontalOptions="CenterAndExpand"
+             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, 
+                  Property=Height, 
+                  Factor=0.33}"
+             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
+                                        Property=Height,
+                                        Factor=0.33}"/>
+    </Grid>
   </ContentPage.Content>
 </ContentPage>

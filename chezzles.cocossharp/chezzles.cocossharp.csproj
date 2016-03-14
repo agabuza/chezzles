@@ -35,6 +35,8 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Common\ISettingsProvider.cs" />
+    <Compile Include="Pieces\Model\ChessSet.cs" />
+    <Compile Include="Services\ChessSetService.cs" />
     <Compile Include="Services\GameDTO.cs" />
     <Compile Include="Extensions\CCPointExtensions.cs" />
     <Compile Include="GameLayer.cs" />

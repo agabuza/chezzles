@@ -4,6 +4,7 @@ using AutoMapper;
 using chezzles.engine.MapperSetup;
 using System;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace chezzles.engine.Core.Game
 {
@@ -14,6 +15,16 @@ namespace chezzles.engine.Core.Game
         {
             var parser = new PgnReader();
             var db = parser.ReadFromString(png);
+            foreach (var game in db.Games)
+            {
+                yield return Mapper.Map<Game>(game);
+            }
+        }
+
+        public IEnumerable<Game> ParseStream(Stream stream)
+        {
+            var parser = new PgnReader();
+            var db = parser.ReadFromStream(stream);
             foreach (var game in db.Games)
             {
                 yield return Mapper.Map<Game>(game);
