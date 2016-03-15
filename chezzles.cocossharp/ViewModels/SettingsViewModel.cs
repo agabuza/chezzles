@@ -50,7 +50,7 @@ namespace chezzles.cocossharp.ViewModels
             var chessSet = JsonConvert.DeserializeObject<ChessSet>(set);
             if (chessSet != null)
             {
-                this.SelectedChessSet = this.ChessSets.FirstOrDefault(x => x.FilePath == chessSet.FilePath);
+                this.SelectedChessSet = this.ChessSets.FirstOrDefault(x => x.BoardPath == chessSet.BoardPath);
             }
 
             this.IsBusy = false;

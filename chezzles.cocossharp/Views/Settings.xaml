@@ -25,7 +25,7 @@
           <Label Text="White always at the bottom:" />
         </StackLayout>
         <Switch IsEnabled="False" IsToggled="True" Grid.Row="1" Grid.Column="1"/>
-        <Label Text="Piece type:" Grid.Row="2" Grid.Column="0"/>
+        <Label Text="Board type:" Grid.Row="2" Grid.Column="0"/>
         <ListView Grid.Row="2" Grid.Column="1"
                   SelectedItem="{Binding SelectedChessSet, Mode=TwoWay}"
                   ItemsSource="{Binding ChessSets}">

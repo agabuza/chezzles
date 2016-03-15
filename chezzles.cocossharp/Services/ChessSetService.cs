@@ -16,7 +16,25 @@ namespace chezzles.cocossharp.Services
                 new ChessSet { Name = "Classic",
                     FilePath = "hd/sprites.plist",
                     BoardPath = "tilemaps/board.tmx",
-                    Description = "Classical chess set"
+                    Description = "Classical chess board"
+                },
+                new ChessSet {
+                    Name = "Contemp",
+                    FilePath = "hd/sprites.plist",
+                    BoardPath = "tilemaps/board_contemp.tmx",
+                    Description = "Conteporary board"
+                },
+                new ChessSet {
+                    Name = "Green",
+                    FilePath = "hd/sprites.plist",
+                    BoardPath = "tilemaps/board_green.tmx",
+                    Description = "Classic green board"
+                },
+                new ChessSet {
+                    Name = "Vintage",
+                    FilePath = "hd/sprites.plist",
+                    BoardPath = "tilemaps/board_old.tmx",
+                    Description = "Vintage board"
                 },
                 new ChessSet {
                     Name = "Book",

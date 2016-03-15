@@ -26,6 +26,7 @@ namespace chezzles.cocossharp
         private IRestService<Game> service;
         private ISetttingsProvider settings;
         private IMessenger messenger;
+        private bool disposed;
 
         public GameLayer(CCSize size)
             : base(size)
@@ -162,13 +163,20 @@ namespace chezzles.cocossharp
 
         protected override void Dispose(bool disposing)
         {
-            this.Save();
+            if (this.disposed) return;
+
             if (this.service != null)
             {
                 this.service.Dispose();
             }
 
             base.Dispose(disposing);
+            disposed = true;
+        }
+
+        ~GameLayer()
+        {
+            this.Dispose(false);
         }
     }
 }
