@@ -163,6 +163,11 @@ namespace chezzles.cocossharp
         protected override void Dispose(bool disposing)
         {
             this.Save();
+            if (this.service != null)
+            {
+                this.service.Dispose();
+            }
+
             base.Dispose(disposing);
         }
     }

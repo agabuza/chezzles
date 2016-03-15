@@ -27,8 +27,8 @@ namespace chezzles.cocossharp.Pieces
         public CocoPiece(Piece piece, CCSpriteFrame cCSpriteFrame) 
             : base(cCSpriteFrame)
         {
-            this.ScaleX = 118 / cCSpriteFrame.Texture.ContentSizeInPixels.Width + 0.1f;
-            this.ScaleY = 118 / cCSpriteFrame.Texture.ContentSizeInPixels.Width + 0.1f;
+            this.ScaleX = cCSpriteFrame.ContentSize.Height / piece.Board.Size + 0.1f;
+            this.ScaleY = cCSpriteFrame.ContentSize.Width / piece.Board.Size + 0.1f;
             this.piece = piece;
             this.piece.PieceTaken += OnPieceTaken;
             this.piece.PositionUpdated += (s, p) =>

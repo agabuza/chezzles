@@ -20,7 +20,7 @@ namespace chezzles.cocossharp.Services
                 },
                 new ChessSet {
                     Name = "Book",
-                    FilePath = "hd/book_sprites.plist",
+                    FilePath = "hd/sprites.plist",
                     BoardPath = "tilemaps/board_book.tmx",
                     Description = "Puzzles from your bookshelf"
                 }

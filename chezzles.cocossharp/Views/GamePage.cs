@@ -27,9 +27,11 @@ namespace chezzles.cocossharp.Views
         private Button skip;
         private GameLayer game;
         private ActivityIndicator activityIndicator;
+        private Button help;
 
         public GamePage()
         {
+            Title = "Puzzles";
             BackgroundColor = BackgroundColor = Color.Silver;
             this.gameView = new CocosSharpView()
             {
@@ -128,6 +130,15 @@ namespace chezzles.cocossharp.Views
                 Command = new RelayCommand(() => this.messenger.Send(new SkipPuzzleMessage()))
             };
 
+            this.help = new Button
+            {
+                Text = "?",
+                WidthRequest = 80,
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                Command = new RelayCommand(ShowHelpPage)
+            };
+
             var stack = new StackLayout()
             {
                 Spacing = 0,
@@ -137,7 +148,8 @@ namespace chezzles.cocossharp.Views
                 Children =
                 {
                     skip,
-                    next
+                    next,
+                    help
                 }
             };
 
@@ -155,6 +167,11 @@ namespace chezzles.cocossharp.Views
 
             BackgroundImage = "felt.jpg";
             Content = grid;
+        }
+
+        private void ShowHelpPage()
+        {
+            throw new NotImplementedException();
         }
 
         protected AbsoluteLayout BusyIndicator(View content, ActivityIndicator indicator)
