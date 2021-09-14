@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using chezzles.core.api.Dto;
+using System;
 
 namespace chezzles.core.api.Controllers
 {
@@ -7,23 +9,17 @@ namespace chezzles.core.api.Controllers
     [Route("[controller]")]
     public class PuzzlesController : ControllerBase
     {
-        private IRepository<GameDTO> repo;
-
-        public PuzzlesController(IRepository<GameDTO> repo)
-        {
-            this.repo = repo;
-        }
 
         [HttpGet]
         public IList<GameDTO> GetAll()
         {
-            return this.repo.GetAll().ToList();
+            throw new NotImplementedException();
         }
 
         [HttpGet]
         public GameDTO GetNextPuzzle(int id)
         {
-            return this.repo.GetById(_.id);
+            throw new NotImplementedException();
         }
     }
 }
