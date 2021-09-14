@@ -11,13 +11,13 @@ namespace chezzles.core.api.Controllers
     {
 
         [HttpGet]
-        public IList<GameDTO> GetAll()
+        public IList<Game> GetAll()
         {
             throw new NotImplementedException();
         }
 
         [HttpGet]
-        public GameDTO GetNextPuzzle(int id)
+        public Game GetNextPuzzle(int id)
         {
             throw new NotImplementedException();
         }
