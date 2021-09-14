@@ -1,7 +1,6 @@
 ﻿using chezzles.core.engine.Core;
 using chezzles.core.engine.Core.Game;
 using chezzles.core.engine.Core.Game.Messages;
-using GalaSoft.MvvmLight.Messaging;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -104,7 +103,7 @@ namespace chezzles.core.engine.Tests.GameTests
             var result = parser.Parse(fenWhiteMove);
             var game = result.FirstOrDefault();
             var targetSquare = new Square(7, 8);
-            Messenger.Default.Register<PuzzleCompletedMessage>(this, (msg) => solved = msg.IsSolved);
+            // Messenger.Default.Register<PuzzleCompletedMessage>(this, (msg) => solved = msg.IsSolved);
 
             var rook = game.Board.Pieces.FirstOrDefault(x => x.Type == PieceType.Rook
                     && x.PossibleMoves().Contains(targetSquare)
@@ -123,7 +122,7 @@ namespace chezzles.core.engine.Tests.GameTests
             var result = parser.Parse(fenWhiteMove);
             var game = result.FirstOrDefault();
             var targetSquare = new Square(7, 7);
-            Messenger.Default.Register<PuzzleCompletedMessage>(this, (msg) => failed = !msg.IsSolved);
+            // Messenger.Default.Register<PuzzleCompletedMessage>(this, (msg) => failed = !msg.IsSolved);
 
             var rook = game.Board.Pieces.FirstOrDefault(x => x.Type == PieceType.Rook
                     && x.PossibleMoves().Contains(targetSquare)

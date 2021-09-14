@@ -1,12 +1,12 @@
 ﻿using chezzles.core.engine.Core.Game;
-using chezzles.engine.Pieces.Builder;
+using chezzles.core.engine.Pieces.Builder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using PgnGame = ilf.pgn.Data.Game;
 
-namespace chezzles.engine.Core
+namespace chezzles.core.engine.Core
 {
     public delegate void PieceMovedEventHandler(Board board, Move move);
 
@@ -16,7 +16,7 @@ namespace chezzles.engine.Core
         private float size;
 
         public bool IsWhiteMove { get; set; }
-        public bool IsBottomUpDirection { get; internal set; }
+        public bool IsBottomUpDirection { get; set; }
 
         public event PieceMovedEventHandler PieceMoved;
 
@@ -38,13 +38,13 @@ namespace chezzles.engine.Core
             this.size = 400;
         }
 
-        internal void MakeMove(Square originalSquare, Square targetSquare, bool notify)
+        public void MakeMove(Square originalSquare, Square targetSquare, bool notify)
         {
             var pieceToMove = this.squares[originalSquare];
             this.PutPiece(targetSquare, pieceToMove, notify);
         }
 
-        internal void MakeMove(Move nextMove)
+        public void MakeMove(Move nextMove)
         {
             var pieceToMove = this.Pieces.FirstOrDefault(x =>
                     x.Type == nextMove.Piece &&
@@ -54,7 +54,7 @@ namespace chezzles.engine.Core
             this.PutPiece(nextMove.TargetSquare, pieceToMove, false);
         }
 
-        internal void MakeMove(Square targetSquare, Piece pieceToMove)
+        public void MakeMove(Square targetSquare, Piece pieceToMove)
         {
             this.PutPiece(targetSquare, pieceToMove, false);
         }

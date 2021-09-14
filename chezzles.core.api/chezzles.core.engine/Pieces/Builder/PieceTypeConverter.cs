@@ -4,12 +4,12 @@ using chezzles.core.engine.Core;
 using Pgn = ilf.pgn.Data;
 namespace chezzles.core.engine.Pieces.Builder
 {
-    public class PieceTypeConverter : ITypeConverter<Pgn.Piece, Core.Piece>
+    public class PieceTypeConverter : ITypeConverter <Pgn.Piece, Core.Piece>
     {
         private static IPieceBuilder builder = new PieceBuilder();
-        public Piece Convert(ResolutionContext context)
+        public Piece Convert(Pgn.Piece source, Core.Piece destination, ResolutionContext context)
         {
-            return builder.BuildPiece(context.SourceValue as Pgn.Piece);
+            return builder.BuildPiece(source);
         }
     }
 }

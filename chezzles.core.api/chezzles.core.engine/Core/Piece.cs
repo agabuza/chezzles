@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace chezzles.engine.Core
+namespace chezzles.core.engine.Core
 {
     public delegate void PieceTakenEventHandler (object sender);
     public delegate void PositionUpatedEventHandler(object sender, Square position);
@@ -18,6 +18,10 @@ namespace chezzles.engine.Core
         public event PieceTakenEventHandler PieceTaken;
         public event PositionUpatedEventHandler PositionUpdated;
 
+        public Piece()
+        {
+        }
+        
         public Piece(Square position, Board board, PieceColor color)
         {
             this.position = position;
@@ -27,9 +31,7 @@ namespace chezzles.engine.Core
             this.board.Squares[position] = this;
         }
 
-        public Piece()
-        {
-        }
+
 
         public abstract PieceType Type { get; }
 

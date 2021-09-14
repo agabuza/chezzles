@@ -10,7 +10,8 @@ namespace chezzles.core.engine.Core.Game
 {
     public class GameParser
     {
-        private AutoMapperConfiguration config = new AutoMapperConfiguration();
+        private IMapper Mapper;
+
         public IEnumerable<Game> Parse(string png)
         {
             var parser = new PgnReader();

@@ -13,8 +13,8 @@ namespace chezzles.core.engine.Pieces
             this.color = color;
         }
 
-        public Rook(Square square, Board board, PieceColor color)
-            : base(square, board, color)
+        public Rook(Square position, Board board, PieceColor color)
+            : base(position, board, color)
         {
         }
 

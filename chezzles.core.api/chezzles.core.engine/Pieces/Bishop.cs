@@ -17,8 +17,8 @@ namespace chezzles.core.engine.Pieces
             this.color = color;
         }
 
-        public Bishop(Square square, Board board, PieceColor color)
-            : base(square, board, color)
+        public Bishop(Square position, Board board, PieceColor color)
+            : base(position, board, color)
         {
         }
 

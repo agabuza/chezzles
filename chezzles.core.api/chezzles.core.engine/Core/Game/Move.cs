@@ -15,7 +15,7 @@ namespace chezzles.core.engine.Core.Game
         public PieceType? PromotedPiece { get; set; }
         public PieceType? TargetPiece { get; set; }
         public PieceType Piece { get; set; }
-        public PieceColor Color { get; internal set; }
+        public PieceColor Color { get; set; }
 
         public override bool Equals(object obj)
         {

@@ -11,8 +11,10 @@ using Pgn = ilf.pgn.Data;
 namespace chezzles.core.engine.MapperSetup
 {
     public class PgnGameMappingProfile : Profile
-    {
-        protected override void Configure()
+    {    
+        private IMapper Mapper;
+
+        public PgnGameMappingProfile()
         {
             this.CreateMap<Pgn.Piece, Core.Piece>()
                 .ConvertUsing(new PieceTypeConverter());
@@ -71,15 +73,15 @@ namespace chezzles.core.engine.MapperSetup
 
             this.CreateMap<Pgn.Database, IEnumerable<Core.Game.Game>>()
                 .ConstructUsing(x => x.Games.Select(g => Mapper.Map<Game>(g)));
-
-            base.Configure();
         }
 
         public class MoveTextEntryToMoveEntryConverter : ITypeConverter<Pgn.MoveTextEntry, MoveEntry>
         {
-            public MoveEntry Convert(ResolutionContext context)
+            private IMapper Mapper;
+
+            public MoveEntry Convert(Pgn.MoveTextEntry source, MoveEntry destination, ResolutionContext context)
             {
-                var moveTextEntry = context.SourceValue as Pgn.MoveTextEntry;
+                var moveTextEntry = source;
 
                 switch (moveTextEntry.Type)
                 {
