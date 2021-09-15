@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using chezzles.core.api.Dto;
 using System;
+using chezzles.core.engine.Core.Game;
 
 namespace chezzles.core.api.Controllers
 {

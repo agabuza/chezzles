@@ -6,7 +6,11 @@
 
   <ItemGroup>
     <PackageReference Include="automapper" Version="10.1.1" />
-    <PackageReference Include="pgn.net" Version="1.2.1" />
   </ItemGroup>
+  <ItemGroup>
+  <Reference Include="pgn">
+    <HintPath>libs\pgn.pack.dll</HintPath>
+  </Reference>
+</ItemGroup>
 
 </Project>

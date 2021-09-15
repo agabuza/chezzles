@@ -9,5 +9,9 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\chezzles.core.engine\chezzles.core.engine.csproj" />
+  </ItemGroup>
+
 
 </Project>
